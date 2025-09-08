@@ -174,6 +174,44 @@ tick          127.56  -1.17641
 bloodparasite 126.74  -1.99463
 ```
 
+Tests for associations between `anaplasma` and the presence of blood parasites (`microfilaria`, `trypanosome`, `babesia`) considered separately in Bt:
+```
+fisher.test(table(data_Bt$anaplasma, data_Bt$microfilaria))  
+fisher.test(table(data_Bt$anaplasma, data_Bt$trypanosome))  
+fisher.test(table(data_Bt$anaplasma, data_Bt$babesia))
+```
+
+Results are:
+```
+Fisher's Exact Test for Count Data
+data:  table(data_Bt$anaplasma, data_Bt$microfilaria)
+p-value = 0.8227
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+0.3362994 2.4250879
+sample estimates:
+odds ratio 
+0.894268 
+
+data:  table(data_Bt$anaplasma, data_Bt$trypanosome)
+p-value = 1
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+0.0591107 71.5824945
+sample estimates:
+odds ratio 
+1.176551 
+
+data:  table(data_Bt$anaplasma, data_Bt$babesia)
+p-value = 1
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+0 Inf
+sample estimates:
+odds ratio 
+0
+```
+
 ## Step 5. Test whether _Anaplasma_ infection prevalence is influenced in _Choloepus didactylus_ (Cd) by sex, age, season, ticks and blood parasites
 
 Create a subset `data_Cd` containing only records for _Choloepus didactylus_ (Cd):
@@ -254,6 +292,44 @@ age           118.07  -0.45219
 season        117.82  -0.70842
 tick          119.35   0.82844
 bloodparasite 117.03  -1.49777
+```
+
+Tests for associations between `anaplasma` and the presence of blood parasites (`microfilaria`, `trypanosome`, `babesia`) considered separately in Cd:
+```
+fisher.test(table(data_Cd$anaplasma, data_Cd$microfilaria))  
+fisher.test(table(data_Cd$anaplasma, data_Cd$trypanosome))  
+fisher.test(table(data_Cd$anaplasma, data_Cd$babesia))
+```
+
+Results are:
+```
+Fisher's Exact Test for Count Data
+data:  table(data_Cd$anaplasma, data_Cd$microfilaria)
+p-value = 1
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+0.2272016 3.5201430
+sample estimates:
+odds ratio 
+0.9086257 
+
+data:  table(data_Cd$anaplasma, data_Cd$trypanosome)
+p-value = 0.2292
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+0.2028662       Inf
+sample estimates:
+odds ratio 
+Inf 
+
+data:  table(data_Cd$anaplasma, data_Cd$babesia)
+p-value = 0.2538
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+0.4399427 32.1559681
+sample estimates:
+odds ratio 
+2.892291 
 ```
 
 ## Step 6. Test xxxx
