@@ -93,7 +93,7 @@ data:  table(data_sloth$anaplasma, data_sloth$species)
 X-squared = 3.3261, df = 1, p-value = 0.06819
 ```
 
-## Step 3. Test whether _Anaplasma_ infection prevalence is influenced in Bradypus tridactylus (Bt) by sex, age, season, ticks and blood parasites
+## Step 4. Test whether _Anaplasma_ infection prevalence is influenced in _Bradypus tridactylus_ (Bt) by sex, age, season, ticks and blood parasites
 Create a subset `data_Bt` containing only records for _Bradypus tridactylus_ (Bt):
 
 ```
