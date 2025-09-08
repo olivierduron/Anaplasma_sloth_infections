@@ -95,7 +95,7 @@ X-squared = 3.3261, df = 1, p-value = 0.06819
 
 ## Step 3. Test whether _Anaplasma_ infection prevalence is influenced in Bradypus tridactylus (Bt) by sex, age, season, ticks and blood parasites
 ```
-# Create the a data subsets data_Bt for Bradypus tridactylus (Bt)
+# Create a subset data_Bt containing only records for Bradypus tridactylus (Bt)
 data_Bt <- subset(data_sloth, species == "Bt")
 ```
 
@@ -242,7 +242,7 @@ bloodparasite 126.74  -1.99463
 
 ## Step 4. Test whether _Anaplasma_ infection prevalence is influenced in Choloepus didactylus (Cd) by sex, age, season, ticks and blood parasites
 ```
-# Create the a data subsets data_Cd for Choloepus didactylus (Cd)
+# Create a subset data__Cd containing only records for Choloepus didactylus (Cd)
 data_Cd <- subset(data_sloth, species == "Cd")
 ```
 
