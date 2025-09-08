@@ -27,7 +27,7 @@ All veterinary clinical data for the two sloth species are available here: https
 
 This database will be referred to as `data_sloth` throughout the R command lines and scripts provided below. It corresponds to the dataset provided in Table S1 of the related manuscript.
 
-Load the dataset directly from the GitHub repository:
+Load the dataset directly from the GitHub repository to R:
 ```
 data_sloth <- read.csv("https://raw.githubusercontent.com/olivierduron/Anaplasma_sloth_infections/main/data_sloth.csv", sep="\t")
 ```
