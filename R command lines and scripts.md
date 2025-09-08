@@ -1,4 +1,5 @@
-#**R command lines and script**
+###**R command lines and script**
+
 We analyzed data from 175 wild sloths captured between 1994 and 1995 during the flooding of the Petit Saut Dam. The clinical data include the following variables for each examined sloth: 
 - species: Sloth species (Bt: *Bradypus tridactylus*; Cd: *Choloepus didactylus*)
 - sex: Sex of the sloth (F: Female; M: Male)
