@@ -81,4 +81,16 @@ Results are:
 2 Cd         83        40      0.482    0.371     0.594
 ```
 
+```
+#Test if Anaplasma infection prevalence is influenced by sloth species
+chisq.test(table(data_sloth$anaplasma, data_sloth$species))
+```
+
+Results are:
+```
+Pearson's Chi-squared test with Yates' continuity correction
+data:  table(data_sloth$anaplasma, data_sloth$species)
+X-squared = 3.3261, df = 1, p-value = 0.06819
+```
+
 ## Step 3. 
