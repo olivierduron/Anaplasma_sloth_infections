@@ -1,0 +1,176 @@
+species	sex	age	season	weight	total_length	wither_height	neck_size	temperature	hematocrit	health_condition	anaplasma	tick	microfilaria	trypanosome	babesia	bloodparasite	female_reproductive_status
+Bt	F	A	W	3.98	52	43.5	13	NA	33	G	1	0	0	0	0	0	Female non pregnant non lactating
+Bt	M	A	W	4.46	55	51	17	32.6	39	G	1	1	0	0	0	0	NA
+Bt	F	A	W	4.3	54.5	NA	15.8	34.5	40	G	0	1	0	0	0	0	Female non pregnant non lactating
+Bt	F	A	W	4.3	53	44	14	34.6	49	G	1	0	0	0	0	0	Female lactating with a young
+Bt	M	A	W	4.6	50	43.5	14	NA	38	G	0	1	0	0	0	0	NA
+Bt	F	A	W	4.3	53	46	14.5	< 32.00	32	G	1	0	1	0	0	1	Female lactating with a young
+Bt	M	A	W	4.46	54	46.5	14	< 32.00	35	G	1	1	1	0	0	1	NA
+Bt	M	A	W	4.96	53	45	14.5	< 32.00	48	G	1	0	0	0	0	0	NA
+Bt	F	A	W	4	51.5	42	13.5	NA	35	G	1	0	1	0	0	1	Female lactating with a young
+Bt	M	A	W	6.28	54	49	17.5	< 32.00	37	G	0	0	1	0	0	1	NA
+Bt	F	A	W	4.2	55	44	16	34.1	43	G	1	0	0	0	0	0	Female non pregnant non lactating
+Bt	F	A	W	5.12	54	47	17	NA	35	G	1	0	0	0	0	0	Female non pregnant non lactating
+Bt	F	A	W	4.09	54	48	13	34.9	37	G	1	0	0	0	0	0	Female non pregnant non lactating
+Bt	F	A	W	4.9	56	48	16	< 32.00	41	G	0	0	1	0	0	1	Female non pregnant non lactating
+Bt	M	A	W	4.3	54	51	13	NA	42	G	0	0	0	0	0	0	NA
+Bt	F	A	W	4.7	57	48	14.5	< 32.00	37	G	0	1	0	0	0	0	Female lactating with a young
+Bt	F	A	W	4.8	66	45	14	< 32.00	36	G	1	0	1	0	0	1	Female non pregnant non lactating
+Bt	F	A	W	4.6	51	46	17	NA	36	G	1	0	0	0	0	0	Female lactating with a young
+Bt	M	A	W	3.74	52	46	16	< 32.00	NA	D	1	0	0	0	0	0	NA
+Bt	M	A	W	4.9	55	46	18	NA	40	G	1	1	1	0	0	1	NA
+Bt	F	A	W	4	54	43	14	NA	44	D	1	0	0	0	0	0	Female lactating with a young
+Bt	M	A	W	4.04	50	44	14	NA	48	G	1	1	0	0	0	0	NA
+Bt	M	A	W	4.44	55	45	18	33.2	34	G	1	0	0	0	0	0	NA
+Bt	M	A	W	5.26	54	48.5	NA	33	35	G	0	0	1	0	0	1	NA
+Bt	M	A	W	3.5	53	46	14	NA	38	G	1	0	0	0	0	0	NA
+Bt	F	A	W	4.2	54	46	14	NA	30	G	0	0	1	0	0	1	Female non pregnant non lactating
+Bt	F	A	W	4.26	52.5	46.5	14.5	33.2	36	G	0	0	0	0	0	0	Female non pregnant non lactating
+Bt	F	A	W	4.6	54	46.5	15.5	NA	36	G	1	0	0	0	0	0	Female lactating with a young
+Bt	F	A	W	5.32	NA	NA	15	35.8	NA	D	1	0	0	0	0	0	Pregnant female
+Bt	M	J	D	2.16	40.5	32.5	10	NA	32	G	1	0	0	0	0	0	NA
+Bt	F	A	D	4.04	56	44.5	14	NA	34	D	0	0	0	0	0	0	Female non pregnant non lactating
+Bt	M	A	D	3.84	46	47	15.5	NA	36	G	1	0	0	0	0	0	NA
+Bt	M	A	D	4.2	50	49	16	NA	44	G	1	0	0	0	0	0	NA
+Bt	M	A	D	4.46	50	45	14	NA	41	G	1	0	1	0	0	1	NA
+Bt	F	A	D	4	53	47	15	NA	34	D	1	0	0	1	0	1	Female non pregnant non lactating
+Bt	M	A	D	4.44	57.5	46	13.5	< 32.00	38	D	1	1	1	0	0	1	NA
+Bt	F	J	D	2.96	47	38.5	13	NA	31	G	0	0	0	1	0	1	Female non pregnant non lactating
+Bt	F	A	D	4.4	54	45	13.5	NA	40	G	0	0	1	0	0	1	Female non pregnant non lactating
+Bt	F	A	D	4.32	55	44	13	NA	38	D	0	1	0	0	0	0	Female non pregnant non lactating
+Bt	F	A	D	4.6	55	45	12	NA	36	G	1	0	0	0	0	0	Female lactating with a young
+Bt	F	A	D	4.92	53	42.5	13	NA	37	G	0	0	1	0	0	1	Female non pregnant non lactating
+Bt	F	A	D	4.3	50.5	46	14	NA	40	D	1	0	0	0	0	0	Female non pregnant non lactating
+Bt	F	A	D	4.44	51.5	44	12.5	NA	34	D	1	0	1	0	0	1	Female non pregnant non lactating
+Bt	M	A	D	4.52	52.5	43	14.5	< 32.00	41	G	0	0	0	0	0	0	NA
+Bt	M	A	D	4	NA	NA	NA	32.9	42	G	0	0	0	0	0	0	NA
+Bt	M	A	D	4.28	50	45	16	NA	41	G	1	0	1	0	0	1	NA
+Bt	F	A	D	5.52	57.5	47.5	14.5	NA	39	G	0	0	1	0	0	1	Female non pregnant non lactating
+Bt	F	A	D	5.04	54.5	47	14.5	NA	40	G	1	0	1	0	0	1	Female non pregnant non lactating
+Bt	F	A	D	4.06	49	46	NA	NA	30	G	0	0	0	0	0	0	Female non pregnant non lactating
+Bt	M	A	D	3.8	51	50	14	NA	33	G	0	0	1	0	0	1	NA
+Bt	M	J	D	2.3	40.8	37	12	NA	32	D	0	0	0	0	0	0	NA
+Bt	F	A	D	5.92	60	47	15.7	32.11	36	G	0	0	0	0	0	0	Female non pregnant non lactating
+Bt	F	A	D	4.8	54	54	16	NA	38	G	1	0	0	0	0	0	Female non pregnant non lactating
+Bt	M	A	D	NA	54	47	15	NA	41	G	1	1	0	0	0	0	NA
+Bt	M	A	D	4.98	52	47	16	< 32.00	41	G	1	0	1	0	0	1	NA
+Bt	M	A	D	3.8	54	43.5	15	33.6	33	G	1	1	1	0	0	1	NA
+Bt	F	A	D	3.88	55	45	15	32.8	42	G	1	0	0	0	0	0	Female non pregnant non lactating
+Bt	M	A	D	4.64	54	48.5	NA	NA	36	G	1	0	0	0	0	0	NA
+Bt	M	A	D	5.06	54	49	16	32.3	NA	G	1	0	0	0	0	0	NA
+Bt	M	A	D	NA	54	48.5	NA	NA	41	G	1	0	0	0	0	0	NA
+Bt	M	A	D	4.94	53	48	NA	NA	40	G	0	0	0	0	0	0	NA
+Bt	M	A	D	4.22	52	41	NA	NA	50	G	1	0	1	0	0	1	NA
+Bt	M	J	D	2.26	50	40	NA	32.16	38	G	0	1	1	0	0	1	NA
+Bt	M	A	W	4.78	54	48	13.5	NA	41	G	1	0	1	0	0	1	NA
+Bt	M	A	W	3.98	53	45	13	< 32.00	35	G	1	0	1	0	0	1	NA
+Bt	M	A	W	4.9	53	48	15	< 32.00	34	G	1	0	1	0	0	1	NA
+Bt	F	A	W	4.3	53	43	13.5	NA	34	G	1	0	1	0	0	1	Female non pregnant non lactating
+Bt	M	A	W	5.12	53	47	16	< 32.00	28	G	0	0	1	0	0	1	NA
+Bt	M	A	W	4.04	51	44.5	14	< 32.00	45	G	1	0	0	0	0	0	NA
+Bt	F	A	W	4.54	52.5	47.5	12	NA	35	G	0	0	0	0	0	0	Female non pregnant non lactating
+Bt	M	A	W	3.68	49.5	42	NA	NA	37	G	0	0	0	0	0	0	NA
+Bt	F	A	W	5	57.5	46	NA	< 32.00	42	G	0	0	0	0	0	0	Pregnant female
+Bt	M	A	W	4.24	49	48	NA	NA	45	G	0	0	0	0	0	0	NA
+Bt	M	A	W	4.48	54	44.5	NA	NA	34	G	1	0	0	0	0	0	NA
+Bt	M	A	W	4.08	53	NA	NA	< 32.00	37	G	1	0	0	0	0	0	NA
+Bt	F	A	W	4.72	53	42	NA	NA	40	G	1	0	0	0	0	0	Female non pregnant non lactating
+Bt	F	A	W	4.9	53	49	NA	< 32.00	43	G	1	0	0	0	0	0	Pregnant female
+Bt	M	A	W	5.3	50	45	NA	NA	34	G	1	0	0	0	0	0	NA
+Bt	M	A	W	4.44	54	49	NA	NA	40	G	1	0	0	0	0	0	NA
+Bt	F	A	W	4.6	55	42	NA	NA	48	G	1	0	0	0	0	0	Female non pregnant non lactating
+Bt	F	A	W	4.22	58	45	NA	NA	43	G	0	0	0	0	0	0	Female non pregnant non lactating
+Bt	M	A	W	5.5	58	52	NA	33.1	46	G	1	0	1	0	0	1	NA
+Bt	F	A	W	4.12	57	45	NA	NA	48	G	0	0	0	0	0	0	Female non pregnant non lactating
+Bt	F	A	W	4.64	55.3	53	NA	NA	33	G	1	0	1	0	0	1	Pregnant female
+Bt	M	A	W	5.3	51	48.5	NA	NA	39	G	1	0	0	0	0	0	NA
+Bt	M	A	W	5.98	53	48	NA	NA	48	G	0	0	0	0	0	0	NA
+Bt	M	A	W	5.16	54	46	14	NA	51	G	1	0	0	0	0	0	NA
+Bt	M	J	W	2.3	50	40	12.3	NA	34	G	1	0	0	1	0	1	NA
+Bt	F	A	W	5.32	54.5	45	NA	NA	32	G	0	0	1	0	0	1	Pregnant female
+Bt	F	A	W	5.8	63	52	NA	NA	41	G	0	1	0	0	0	0	Pregnant female
+Bt	M	A	W	5.44	54	51	14	NA	51	G	0	0	1	0	0	1	NA
+Bt	M	A	W	5.74	56.5	47	NA	NA	45	G	1	0	0	0	0	0	NA
+Cd	M	A	W	8.04	71	54	26	36.2	45	G	0	0	0	0	1	1	NA
+Cd	F	A	W	5.78	63	48	24	35.6	35	G	1	0	0	0	0	0	Female non pregnant non lactating
+Cd	F	A	W	5.02	60	44	18	NA	41	G	0	1	0	0	0	0	Female non pregnant non lactating
+Cd	F	A	W	7.82	67.5	54.5	27	NA	42	G	1	0	1	0	0	1	Female non pregnant non lactating
+Cd	F	A	D	6.8	65	51.5	22.5	NA	40	G	0	0	0	0	0	0	Female non pregnant non lactating
+Cd	F	A	D	8.64	71	61	27	NA	40	G	1	0	0	0	0	0	Female non pregnant non lactating
+Cd	F	J	D	2.22	43	34.5	17.5	33.4	33	G	0	0	0	0	0	0	Female non pregnant non lactating
+Cd	M	A	D	5.78	66	48	NA	NA	41	G	1	0	0	0	0	0	NA
+Cd	M	A	D	7.34	65.5	53	22	NA	34	G	1	0	0	0	0	0	NA
+Cd	F	J	D	3.2	50	37.5	17.5	NA	31	G	0	1	0	0	0	0	Female non pregnant non lactating
+Cd	F	A	D	7.24	66	53.5	23	NA	36	G	0	0	0	0	0	0	Female non pregnant non lactating
+Cd	F	J	D	3.04	48	36.5	16.5	NA	38	G	0	0	0	0	0	0	Female non pregnant non lactating
+Cd	M	J	D	4.54	60	48	24	NA	37	G	1	1	0	0	1	1	NA
+Cd	F	A	D	8.98	72	59	20	NA	38	G	0	0	0	0	0	0	Female lactating with a young
+Cd	M	A	D	6.66	69	59	22.5	NA	38	G	0	0	1	0	0	1	NA
+Cd	F	A	D	6.26	62.5	45.5	19	NA	44	G	1	0	0	0	0	0	Female non pregnant non lactating
+Cd	F	J	D	4.86	62	47	14	NA	38	G	1	0	0	0	0	0	Female non pregnant non lactating
+Cd	F	A	D	6.58	65	54	20.5	NA	41	G	0	0	0	0	0	0	Female non pregnant non lactating
+Cd	F	A	D	7.9	71	54.5	22	35.54	31	G	1	1	0	0	0	0	Female non pregnant non lactating
+Cd	F	A	D	5.76	67	56	20	36.5	35	G	0	0	1	0	0	1	Female non pregnant non lactating
+Cd	F	J	D	3.96	56	42	16.5	NA	36	G	1	0	0	0	0	0	Female non pregnant non lactating
+Cd	F	A	D	7.4	NA	NA	NA	NA	NA	D	0	0	0	0	0	0	Female non pregnant non lactating
+Cd	M	A	D	5.88	NA	NA	NA	NA	40	G	0	0	0	0	0	0	NA
+Cd	M	A	D	8.86	NA	NA	NA	NA	42	G	1	0	0	0	0	0	NA
+Cd	F	A	D	7.24	69	52.5	21	NA	NA	G	1	0	0	0	0	0	Female non pregnant non lactating
+Cd	M	A	D	6.36	62	46	17	NA	36	G	0	0	0	0	0	0	NA
+Cd	F	A	D	11.8	75	55	27	36	38	G	0	0	0	0	0	0	Female lactating with a young
+Cd	F	A	D	8.22	72	56	20.5	NA	33	G	1	0	0	1	0	1	Female non pregnant non lactating
+Cd	F	A	D	8.3	71	58.5	19.5	NA	41	G	0	0	0	0	0	0	Female non pregnant non lactating
+Cd	M	A	D	6.98	67	54.5	24	NA	37	G	0	1	0	0	0	0	NA
+Cd	F	J	D	3.84	54	43	18.5	NA	22	G	1	1	0	0	0	0	Female non pregnant non lactating
+Cd	M	A	D	8.3	67	53.5	22.5	NA	32	G	1	0	0	0	0	0	NA
+Cd	F	A	D	8.46	73	54	26	35.1	34	G	1	0	0	0	0	0	Female lactating with a young
+Cd	F	A	D	7.02	65	58	NA	34	34	G	0	0	0	0	0	0	Female lactating with a young
+Cd	M	J	D	2.6	46	30	17	33.8	37	G	0	0	0	0	0	0	NA
+Cd	F	J	D	3.14	49	38	14	NA	32	G	1	0	0	0	0	0	Female non pregnant non lactating
+Cd	M	J	D	3.3	47.5	35	14.5	NA	36	G	0	0	0	0	0	0	NA
+Cd	F	A	D	8.62	68	55	25	NA	49	G	0	0	0	0	0	0	Female non pregnant non lactating
+Cd	F	J	D	4.7	59	41	19	35.5	33	G	0	0	0	0	0	0	Female non pregnant non lactating
+Cd	F	J	D	3.2	49	37	16.5	34.2	28	G	1	0	0	0	0	0	Female non pregnant non lactating
+Cd	M	A	D	6.18	64	50	21.5	NA	39	G	1	0	0	0	0	0	NA
+Cd	F	A	D	6.44	68	54	NA	NA	43	D	0	0	1	0	0	1	Female non pregnant non lactating
+Cd	F	J	D	4.08	53	42	18.5	NA	44	G	0	0	0	0	0	0	Female non pregnant non lactating
+Cd	M	A	D	7.32	68	54	24	36	27	G	1	0	1	0	0	1	NA
+Cd	M	A	D	7.38	67.5	52	24	NA	40	G	0	0	1	0	0	1	NA
+Cd	F	A	D	7	65.5	53.5	25	NA	37	G	0	1	0	0	0	0	Female non pregnant non lactating
+Cd	M	A	D	6.64	66	57	NA	33.4	38	G	1	0	0	1	0	1	NA
+Cd	M	A	D	7.02	67	53	26	NA	17	G	1	1	0	0	0	0	NA
+Cd	F	A	D	8.2	NA	NA	NA	35.7	34	G	0	0	1	0	0	1	Female non pregnant non lactating
+Cd	F	A	D	7.82	71	58	22	36.1	39	G	0	0	0	0	0	0	Female non pregnant non lactating
+Cd	F	J	D	4.24	60	45	19	36.42	38	G	1	0	0	0	0	0	Female non pregnant non lactating
+Cd	F	A	D	6.85	66	56	20	36.51	43	G	0	0	0	0	0	0	Female lactating with a young
+Cd	M	J	D	4.58	56	NA	19	NA	37	G	1	0	0	0	0	0	NA
+Cd	F	A	D	8.8	77	58.5	22	NA	33	G	0	0	1	0	0	1	Female lactating with a young
+Cd	M	A	D	7.28	67.5	NA	NA	NA	37	G	0	0	0	0	0	0	NA
+Cd	M	A	D	7.78	73	55.5	24.5	35.02	31	G	1	0	0	0	0	0	NA
+Cd	F	A	D	7.82	64.5	58.5	20.5	34.65	42	G	0	0	1	0	0	1	Female non pregnant non lactating
+Cd	M	J	D	5.62	67	48	19	36.7	44	G	1	1	0	0	0	0	NA
+Cd	F	A	D	7.82	70.5	NA	20.5	NA	50	G	1	1	0	0	0	0	Female lactating with a young
+Cd	F	A	D	7.44	71	55	NA	NA	39	D	0	1	0	0	0	0	Female non pregnant non lactating
+Cd	F	A	D	10.69	77	61	23	33.7	37	G	0	0	0	0	0	0	Pregnant female
+Cd	M	J	D	3.12	51	NA	NA	NA	34	G	1	0	0	0	0	0	NA
+Cd	F	A	D	8.36	69	NA	24.5	35.1	45	G	0	0	0	0	0	0	Female non pregnant non lactating
+Cd	F	J	D	2.88	48	34	14	33.81	44	G	0	0	0	0	0	0	Female non pregnant non lactating
+Cd	M	A	D	7.68	68.5	NA	26.5	NA	38	G	0	0	0	0	1	1	NA
+Cd	M	A	W	7.34	64.5	NA	23.5	NA	34	G	1	1	1	0	1	1	NA
+Cd	M	A	W	7.6	69	53	25	NA	38	G	0	0	0	0	0	0	NA
+Cd	F	A	W	7.28	67	56.5	22	NA	42	G	1	1	0	0	0	0	Female non pregnant non lactating
+Cd	M	J	W	4.14	56	42	17.5	35.05	35	G	1	1	1	0	0	1	NA
+Cd	F	A	W	8.76	74	57	23	NA	39	G	0	0	0	0	0	0	Pregnant female
+Cd	M	J	W	2.64	44	34	14	32.6	35	G	1	0	0	0	1	1	NA
+Cd	F	A	W	7.2	67.5	52	NA	NA	42	G	1	0	0	0	0	0	Female non pregnant non lactating
+Cd	M	A	W	5.14	58	NA	20.5	NA	47	G	1	1	0	0	1	1	NA
+Cd	F	A	W	NA	66	53	21.5	32.87	39	G	1	1	0	0	0	0	Female non pregnant non lactating
+Cd	F	A	W	9.14	72	51	NA	NA	44	G	1	0	0	0	0	0	Pregnant female
+Cd	M	J	W	4.68	63	46.5	NA	32.9	46	D	0	0	0	0	0	0	NA
+Cd	M	A	W	7.62	74	59	NA	NA	33	D	1	0	0	0	1	1	NA
+Cd	M	A	W	7.06	68	53	NA	NA	42	G	1	0	1	0	0	1	NA
+Cd	M	A	W	8.28	65	56	24.5	35	42	G	0	0	0	0	0	0	NA
+Cd	M	A	W	8.56	71.5	55.5	27	NA	45	G	0	0	0	0	0	0	NA
+Cd	F	A	W	8.48	69	54	23	37.4	39	G	1	1	0	0	0	0	Female non pregnant non lactating
+Cd	F	A	W	7.5	72	53	27.5	NA	43	G	1	1	1	0	0	1	Female non pregnant non lactating
+Cd	M	A	W	7.1	64	53.5	24	NA	48	G	0	1	0	0	0	0	NA
