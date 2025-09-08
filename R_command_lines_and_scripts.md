@@ -17,7 +17,7 @@ We analyzed data from 175 wild sloths captured between 1994 and 1995 during the 
 - `microfilaria` : Infection status with microfilariae (0: Uninfected; 1: Infected)
 - `trypanosome` : Infection status with trypanosomes (0: Uninfected; 1: Infected)
 - `babesia` : Infection status with _Babesia_ (0: Uninfected; 1: Infected)
-- `blood_parasite` : Combined infection status for blood parasites (microfilariae + trypanosome + _Babesia_, but excluding _Anaplasma_; 0: Uninfected; 1: Infected)
+- `bloodparasite` : Combined infection status for blood parasites (microfilariae + trypanosome + _Babesia_, but excluding _Anaplasma_; 0: Uninfected; 1: Infected)
 Details about all the experimental methods and measures are available in the related manuscript.
 
 
@@ -100,80 +100,14 @@ Create a subset `data_Bt` containing only records for _Bradypus tridactylus_ (Bt
 data_Bt <- subset(data_sloth, species == "Bt")
 ```
 
-Fit a GLM to test whether `anaplasma` is influenced by interactions among `sex`, `age`, `season`, `tick`, and `blood_parasite` in Bt:
+Fit a GLM to test whether `anaplasma` is influenced by interactions among `sex`, `age`, `season`, `tick`, and `bloodparasite` in Bt:
 ```
 model_1 <- glm(anaplasma ~ sex * age * season * tick * bloodparasite, data = data_Bt, family = binomial)
-summary(model_1)
 ```
 
-Results are:
-```
-glm(formula = anaplasma ~ sex * age * season * tick * bloodparasite, 
-    family = binomial, data = data_Bt)
-Coefficients: (14 not defined because of singularities)
-                                         Estimate Std. Error z value Pr(>|z|)
-(Intercept)                             2.877e-01  7.638e-01   0.377    0.706
-sexM                                    2.231e-01  1.057e+00   0.211    0.833
-ageJ                                   -1.757e+01  3.956e+03  -0.004    0.996
-seasonW                                 5.878e-01  9.309e-01   0.631    0.528
-tick1                                  -1.785e+01  3.956e+03  -0.005    0.996
-bloodparasite1                         -2.877e-01  1.118e+00  -0.257    0.797
-sexM:ageJ                               1.706e+01  3.956e+03   0.004    0.997
-sexM:seasonW                            4.529e-15  1.317e+00   0.000    1.000
-ageJ:seasonW                            1.808e+01  3.956e+03   0.005    0.996
-sexM:tick1                              3.491e+01  5.595e+03   0.006    0.995
-ageJ:tick1                             -3.462e+01  4.845e+03  -0.007    0.994
-seasonW:tick1                          -5.878e-01  4.568e+03   0.000    1.000
-sexM:bloodparasite1                     1.163e+00  1.742e+00   0.668    0.504
-ageJ:bloodparasite1                            NA         NA      NA       NA
-seasonW:bloodparasite1                 -7.696e-02  1.438e+00  -0.054    0.957
-tick1:bloodparasite1                   -8.755e-01  4.845e+03   0.000    1.000
-sexM:ageJ:seasonW                              NA         NA      NA       NA
-sexM:ageJ:tick1                                NA         NA      NA       NA
-sexM:seasonW:tick1                     -1.687e+01  6.043e+03  -0.003    0.998
-ageJ:seasonW:tick1                             NA         NA      NA       NA
-sexM:ageJ:bloodparasite1                       NA         NA      NA       NA
-sexM:seasonW:bloodparasite1            -1.897e+00  2.164e+00  -0.877    0.381
-ageJ:seasonW:bloodparasite1                    NA         NA      NA       NA
-sexM:tick1:bloodparasite1                      NA         NA      NA       NA
-ageJ:tick1:bloodparasite1                      NA         NA      NA       NA
-seasonW:tick1:bloodparasite1            1.885e+01  5.595e+03   0.003    0.997
-sexM:ageJ:seasonW:tick1                        NA         NA      NA       NA
-sexM:ageJ:seasonW:bloodparasite1               NA         NA      NA       NA
-sexM:ageJ:tick1:bloodparasite1                 NA         NA      NA       NA
-sexM:seasonW:tick1:bloodparasite1              NA         NA      NA       NA
-ageJ:seasonW:tick1:bloodparasite1              NA         NA      NA       NA
-sexM:ageJ:seasonW:tick1:bloodparasite1         NA         NA      NA       NA
-(Dispersion parameter for binomial family taken to be 1)
-    Null deviance: 121.21  on 91  degrees of freedom
-Residual deviance: 100.33  on 74  degrees of freedom
-AIC: 136.33
-Number of Fisher Scoring iterations: 16
-```
-
-Fit a GLM to test whether `anaplasma` infection prevalence is influenced by additive effects of `sex`, `age`, `season`, `tick`, and `blood_parasite` in Bt:
+Fit a GLM to test whether `anaplasma` infection prevalence is influenced by additive effects of `sex`, `age`, `season`, `tick`, and `bloodparasite` in Bt:
 ```
 model_1a <- glm(anaplasma ~ sex + age + season + tick + bloodparasite, data = data_Bt, family = binomial)
-summary(model_1a)
-```
-
-Results are:
-```
-glm(formula = anaplasma ~ sex + age + season + tick + bloodparasite, 
-    family = binomial, data = data_Bt)
-Coefficients:
-               Estimate Std. Error z value Pr(>|z|)
-(Intercept)     0.19121    0.47792   0.400    0.689
-sexM            0.73449    0.45561   1.612    0.107
-ageJ           -1.10598    0.99102  -1.116    0.264
-seasonW         0.20467    0.46811   0.437    0.662
-tick1          -0.57129    0.62584  -0.913    0.361
-bloodparasite1 -0.03394    0.46292  -0.073    0.942
-(Dispersion parameter for binomial family taken to be 1)
-    Null deviance: 121.21  on 91  degrees of freedom
-Residual deviance: 116.74  on 86  degrees of freedom
-AIC: 128.74
-Number of Fisher Scoring iterations: 4
 ```
 
 Compare the additive model (model_1a) to the interaction model (model_1) using a likelihood ratio test:
@@ -226,7 +160,6 @@ Calculate delta AIC for each term to assess its contribution to model fit:
 ```
 aic_full <- AIC(model_1a)
 res$delta_AIC <- res$AIC - aic_full
-res$delta_AIC
 print(res[, c("AIC", "delta_AIC")])
 ```
 
@@ -248,5 +181,81 @@ Create a subset `data_Cd` containing only records for _Choloepus didactylus_ (Cd
 data_Cd <- subset(data_sloth, species == "Cd")
 ```
 
+Fit a GLM to test whether `anaplasma` is influenced by interactions among `sex`, `age`, `season`, `tick`, and `bloodparasite` in Cd:
+```
+model_2 <- glm(anaplasma ~ sex * age * season * tick * bloodparasite, data = data_Cd, family = binomial)
+```
 
+Fit a GLM to test whether `anaplasma` infection prevalence is influenced by additive effects of `sex`, `age`, `season`, `tick`, and `bloodparasite` in Cd:
+```
+model_2a <- glm(anaplasma ~ sex + age + season + tick + bloodparasite, data = data_Cd, family = binomial)
+```
 
+Compare the additive model (model_2a) to the interaction model (model_2) using a likelihood ratio test:
+```
+anova(model_2a, model_2, test = "Chisq")
+```
+
+Results are:
+```
+Analysis of Deviance Table
+Model 1: anaplasma ~ sex + age + season + tick + bloodparasite
+Model 2: anaplasma ~ sex * age * season * tick * bloodparasite
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        77    106.525                     
+2        61     85.459 16   21.066    0.176
+```
+
+Compute AIC for both models to evaluate model fit:
+```
+AIC(model_2, model_2a)
+```
+
+Results are:
+```
+         df      AIC
+model_2  22 129.4592
+model_2a  6 118.5250
+```
+
+Perform drop-one-term analysis on the additive model:
+```
+res <- drop1(model_2a, test = "Chisq")
+res
+```
+
+Results are:
+```
+Single term deletions
+Model:
+anaplasma ~ sex + age + season + tick + bloodparasite
+              Df Deviance    AIC     LRT Pr(>Chi)  
+<none>             106.53 118.53                   
+sex            1   107.12 117.12 0.59812  0.43930  
+age            1   108.07 118.07 1.54781  0.21346  
+season         1   107.82 117.82 1.29158  0.25576  
+tick           1   109.35 119.35 2.82844  0.09261
+bloodparasite  1   107.03 117.03 0.50223  0.47852  
+```
+
+Calculate delta AIC for each term to assess its contribution to model fit:
+```
+aic_full <- AIC(model_2a)
+res$delta_AIC <- res$AIC - aic_full
+print(res[, c("AIC", "delta_AIC")])
+```
+
+Results are:
+```
+                 AIC delta_AIC
+<none>        118.53   0.00000
+sex           117.12  -1.40188
+age           118.07  -0.45219
+season        117.82  -0.70842
+tick          119.35   0.82844
+bloodparasite 117.03  -1.49777
+```
+
+## Step 6. Test xxxx
+
+xxx
