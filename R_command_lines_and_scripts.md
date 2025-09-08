@@ -27,16 +27,42 @@ All veterinary clinical data for the two sloth species are available here: https
 
 This database will be referred to as `data_sloth` throughout the R command lines and scripts provided below. It corresponds to the dataset provided in Table S1 of the related manuscript.
 ```
-#Load the dateset
+# Load the dateset
 
 data_sloth <- read.csv("https://raw.githubusercontent.com/olivierduron/Anaplasma_sloth_infections/main/data_sloth.csv", sep="\t")
 
-#Complete overview
+# Complete overview
 
 data_sloth
 ```
 
 
-## Step 2. xxxx
+## Step 2. Prepare the data for analysis
+```
+# Convert categorical variables into factors
+data_sloth$anaplasma      <- as.factor(data_sloth$anaplasma)
+data_sloth$species        <- as.factor(data_sloth$species)
+data_sloth$season         <- as.factor(data_sloth$season)
+data_sloth$sex            <- as.factor(data_sloth$sex)
+data_sloth$age            <- as.factor(data_sloth$age)
+data_sloth$tick           <- as.factor(data_sloth$tick)
+data_sloth$microfilaria   <- as.factor(data_sloth$microfilaria)
+data_sloth$trypanosome    <- as.factor(data_sloth$trypanosome)
+data_sloth$babesia        <- as.factor(data_sloth$babesia)
+data_sloth$bloodparasite  <- as.factor(data_sloth$bloodparasite)
 
-xxxx
+# Load libraries for analysis
+library(binom)
+library(dplyr)
+library(MASS)
+library(ggplot2)
+library(patchwork)
+library(smatr)
+library(lmtest)
+library(akima)
+library(pwr)
+library(survival)
+library(RColorBrewer)
+```
+
+## Step 3. 
