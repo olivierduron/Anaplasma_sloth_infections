@@ -20,4 +20,5 @@ In this study, we used data from clinical evaluations conducted in French Guiana
 - babesia: Infection status with _Babesia_ (0: Uninfected; 1: Infected)
 - blood_parasites: Combined infection status for blood parasites (microfilariae + trypanosome + Babesia; 0: Uninfected; 1: Infected)
 
-Step 1. Retrieving
+Step 1. Retrieving data
+
