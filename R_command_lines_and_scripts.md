@@ -27,7 +27,7 @@ All veterinary clinical data for the two sloth species are available here: https
 
 This database will be referred to as `data_sloth` throughout the R command lines and scripts provided below. It corresponds to the dataset provided in Table S1 of the related manuscript.
 
-Load the dateset
+Load the dateset:
 ```
 data_sloth <- read.csv("https://raw.githubusercontent.com/olivierduron/Anaplasma_sloth_infections/main/data_sloth.csv", sep="\t")
 ```
@@ -35,7 +35,7 @@ data_sloth <- read.csv("https://raw.githubusercontent.com/olivierduron/Anaplasma
 
 ## Step 2. Prepare the data for analysis
 
-Convert categorical variables into factors
+Convert categorical variables into factors:
 ```
 data_sloth$anaplasma      <- as.factor(data_sloth$anaplasma)
 data_sloth$species        <- as.factor(data_sloth$species)
@@ -49,7 +49,7 @@ data_sloth$babesia        <- as.factor(data_sloth$babesia)
 data_sloth$bloodparasite  <- as.factor(data_sloth$bloodparasite)
 ```
 
-Load libraries for analysis
+Load libraries for analysis: 
 ```
 library(binom)
 library(dplyr)
@@ -65,7 +65,7 @@ library(RColorBrewer)
 ```
 
 ## Step 3. Calculate *Anaplasma* infection prevalence
-Calculate _Anaplasma_ infection prevalence and 95% confidence interval for _Bradypus tridactylus_ (Bt) and _Choloepus didactylus_ (Cd)
+Calculate _Anaplasma_ infection prevalence and 95% confidence interval for _Bradypus tridactylus_ (Bt) and _Choloepus didactylus_ (Cd):
 
 ```
 prevalence_results <- data_sloth %>% group_by(species) %>% summarise(n = n(), positives = sum(anaplasma == 1), prevalence = positives / n, conf_low = binom.confint(positives, n, conf.level = 0.95, methods = "exact")$lower, conf_high = binom.confint(positives, n, conf.level = 0.95, methods = "exact")$upper)
@@ -81,7 +81,7 @@ Results are:
 2 Cd         83        40      0.482    0.371     0.594
 ```
 
-Test if `anaplasma` is influenced by sloth `species`
+Test if `anaplasma` is influenced by sloth `species`:
 ```
 chisq.test(table(data_sloth$anaplasma, data_sloth$species))
 ```
@@ -94,13 +94,13 @@ X-squared = 3.3261, df = 1, p-value = 0.06819
 ```
 
 ## Step 3. Test whether _Anaplasma_ infection prevalence is influenced in Bradypus tridactylus (Bt) by sex, age, season, ticks and blood parasites
-Create a subset `data_Bt` containing only records for _Bradypus tridactylus_ (Bt)
+Create a subset `data_Bt` containing only records for _Bradypus tridactylus_ (Bt):
 
 ```
 data_Bt <- subset(data_sloth, species == "Bt")
 ```
 
-Fit a GLM to test whether `anaplasma` is influenced by interactions among `sex`, `age`, `season`, `tick`, and `blood_parasite` in Bt
+Fit a GLM to test whether `anaplasma` is influenced by interactions among `sex`, `age`, `season`, `tick`, and `blood_parasite` in Bt:
 ```
 model_1 <- glm(anaplasma ~ sex * age * season * tick * bloodparasite, data = data_Bt, family = binomial)
 summary(model_1)
@@ -151,7 +151,7 @@ AIC: 136.33
 Number of Fisher Scoring iterations: 16
 ```
 
-Fit a GLM to test whether `anaplasma` infection prevalence is influenced by additive effects of `sex`, `age`, `season`, `tick`, and `blood_parasite` in Bt
+Fit a GLM to test whether `anaplasma` infection prevalence is influenced by additive effects of `sex`, `age`, `season`, `tick`, and `blood_parasite` in Bt:
 ```
 model_1a <- glm(anaplasma ~ sex + age + season + tick + bloodparasite, data = data_Bt, family = binomial)
 summary(model_1a)
@@ -176,7 +176,7 @@ AIC: 128.74
 Number of Fisher Scoring iterations: 4
 ```
 
-Compare the additive model to the interaction model using a likelihood ratio test
+Compare the additive model to the interaction model using a likelihood ratio test:
 ```
 anova(model_1a, model_1, test = "Chisq")
 ```
@@ -191,7 +191,7 @@ Model 2: anaplasma ~ sex * age * season * tick * bloodparasite
 2        74     100.33 12   16.409   0.1732
 ```
 
-Compute AIC for both models to evaluate model fit
+Compute AIC for both models to evaluate model fit:
 ```
 AIC(model_1, model_1a)
 ```
@@ -203,7 +203,7 @@ model_1  18 136.3264
 model_1a  6 128.7350
 ```
 
-Perform drop-one-term analysis on the additive model
+Perform drop-one-term analysis on the additive model:
 ```
 res <- drop1(model_1a, test = "Chisq")
 res
@@ -222,7 +222,7 @@ tick           1   117.56 127.56 0.82359   0.3641
 bloodparasite  1   116.74 126.74 0.00537   0.9416
 ```
 
-Calculate delta AIC for each term to assess its contribution to model fit
+Calculate delta AIC for each term to assess its contribution to model fit:
 ```
 aic_full <- AIC(model_1a)
 res$delta_AIC <- res$AIC - aic_full
@@ -243,7 +243,7 @@ bloodparasite 126.74  -1.99463
 
 ## Step 4. Test whether _Anaplasma_ infection prevalence is influenced in Choloepus didactylus (Cd) by sex, age, season, ticks and blood parasites
 
-Create a subset `data_Cd` containing only records for Choloepus didactylus (Cd)
+Create a subset `data_Cd` containing only records for Choloepus didactylus (Cd):
 ```
 data_Cd <- subset(data_sloth, species == "Cd")
 ```
