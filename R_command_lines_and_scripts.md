@@ -194,7 +194,7 @@ odds ratio
 0.894268 
 
 data:  table(data_Bt$anaplasma, data_Bt$trypanosome)
-p-value = 1
+p-value = 0.9999
 alternative hypothesis: true odds ratio is not equal to 1
 95 percent confidence interval:
 0.0591107 71.5824945
@@ -203,7 +203,7 @@ odds ratio
 1.176551 
 
 data:  table(data_Bt$anaplasma, data_Bt$babesia)
-p-value = 1
+p-value = 0.9999
 alternative hypothesis: true odds ratio is not equal to 1
 95 percent confidence interval:
 0 Inf
@@ -305,7 +305,7 @@ Results are:
 ```
 Fisher's Exact Test for Count Data
 data:  table(data_Cd$anaplasma, data_Cd$microfilaria)
-p-value = 1
+p-value = 0.9999
 alternative hypothesis: true odds ratio is not equal to 1
 95 percent confidence interval:
 0.2272016 3.5201430
