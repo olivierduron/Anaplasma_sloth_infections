@@ -65,4 +65,20 @@ library(survival)
 library(RColorBrewer)
 ```
 
+## Step 3. Calculate Anaplasma infection prevalence
+```
+# Calculate Anaplasma infection prevalence and 95% confidence interval for Bradypus tridactylus (Bt) and Choloepus didactylus (Cd)
+prevalence_results <- data_sloth %>% group_by(species) %>% summarise(n = n(), positives = sum(anaplasma == 1), prevalence = positives / n, conf_low = binom.confint(positives, n, conf.level = 0.95, methods = "exact")$lower, conf_high = binom.confint(positives, n, conf.level = 0.95, methods = "exact")$upper)
+print(prevalence_results)
+```
+
+Results are:
+```
+# A tibble: 2 × 6
+  species     n positives prevalence conf_low conf_high
+  <fct>   <int>     <int>      <dbl>    <dbl>     <dbl>
+1 Bt         92        58      0.630    0.523     0.729
+2 Cd         83        40      0.482    0.371     0.594
+```
+
 ## Step 3. 
