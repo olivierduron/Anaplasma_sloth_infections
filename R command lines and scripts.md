@@ -1,7 +1,4 @@
-# Anaplasma_sloth_infections
-This repository provides the R command lines and scripts used for the statistical analyses in the manuscript 'High prevalence of asymptomatic anaplasmosis in wild sloths' by Duron et al. 
-
-In this study, we used data from clinical evaluations conducted in French Guiana to investigate the effect of infection with *Anaplasma amazonensis* in wild brown-throated sloths (*Bradypus tridactylus*) and Linnaeus’s two-toed sloths (*Choloepus didactylus*). Specifically, we analyzed data from 175 wild sloths captured between 1994 and 1995 during the flooding of the Petit Saut Dam. These veterinary clinical data include the following variables: 
+We analyzed data from 175 wild sloths captured between 1994 and 1995 during the flooding of the Petit Saut Dam. These veterinary clinical data include the following variables: 
 - species: Sloth species (Bt: *Bradypus tridactylus*; Cd: *Choloepus didactylus*)
 - sex: Sex of the sloth (F: Female; M: Male)
 - age_class: Age category (A: Adult; J: Juvenile)
