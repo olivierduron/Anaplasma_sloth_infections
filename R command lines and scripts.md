@@ -24,9 +24,7 @@ Details about all the experimental methods and measures are available in the rel
 Step 1. Retrieving the data
 All veterinary clinical data for the two sloth species are available here: XXX.
 This database will be referred to as data_sloth throughout the R command lines and scripts provided below. It corresponds to the dataset provided in Table S1 of the related manuscript.
-
-# Load the dataset
-data_sloth <- read.csv("https://raw.githubusercontent.com/olivierduron/Anaplasma_sloth_infections/main/data_sloth.csv")
-
-# Quick overview
-head(data_sloth)
+#Load the dateset
+data_sloth <- read.csv("https://raw.githubusercontent.com/olivierduron/Anaplasma_sloth_infections/main/data_sloth.csv", sep="\t")
+#Complete overview
+data_sloth
