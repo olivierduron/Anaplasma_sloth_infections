@@ -176,7 +176,7 @@ AIC: 128.74
 Number of Fisher Scoring iterations: 4
 ```
 
-Compare the additive model to the interaction model using a likelihood ratio test:
+Compare the additive model (model_1a) to the interaction model (model_1) using a likelihood ratio test:
 ```
 anova(model_1a, model_1, test = "Chisq")
 ```
@@ -241,9 +241,9 @@ tick          127.56  -1.17641
 bloodparasite 126.74  -1.99463
 ```
 
-## Step 4. Test whether _Anaplasma_ infection prevalence is influenced in Choloepus didactylus (Cd) by sex, age, season, ticks and blood parasites
+## Step 5. Test whether _Anaplasma_ infection prevalence is influenced in _Choloepus didactylus_ (Cd) by sex, age, season, ticks and blood parasites
 
-Create a subset `data_Cd` containing only records for Choloepus didactylus (Cd):
+Create a subset `data_Cd` containing only records for _Choloepus didactylus_ (Cd):
 ```
 data_Cd <- subset(data_sloth, species == "Cd")
 ```
