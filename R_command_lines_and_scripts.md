@@ -18,6 +18,7 @@ We analyzed data from 175 wild sloths captured between 1994 and 1995 during the 
 - `trypanosome` : Infection status with trypanosomes (0: Uninfected; 1: Infected)
 - `babesia` : Infection status with _Babesia_ (0: Uninfected; 1: Infected)
 - `bloodparasite` : Combined infection status for blood parasites (microfilariae + trypanosome + _Babesia_, but excluding _Anaplasma_; 0: Uninfected; 1: Infected)
+  
 Details about all the experimental methods and measures are available in the related manuscript.
 
 
