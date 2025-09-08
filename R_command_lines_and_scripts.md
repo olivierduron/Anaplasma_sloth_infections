@@ -26,20 +26,17 @@ Details about all the experimental methods and measures are available in the rel
 All veterinary clinical data for the two sloth species are available here: https://github.com/olivierduron/Anaplasma_sloth_infections/blob/main/data_sloth.csv
 
 This database will be referred to as `data_sloth` throughout the R command lines and scripts provided below. It corresponds to the dataset provided in Table S1 of the related manuscript.
+
+Load the dateset
 ```
-# Load the dateset
-
 data_sloth <- read.csv("https://raw.githubusercontent.com/olivierduron/Anaplasma_sloth_infections/main/data_sloth.csv", sep="\t")
-
-# Complete overview
-
-data_sloth
 ```
 
 
 ## Step 2. Prepare the data for analysis
+
+Convert categorical variables into factors
 ```
-# Convert categorical variables into factors
 data_sloth$anaplasma      <- as.factor(data_sloth$anaplasma)
 data_sloth$species        <- as.factor(data_sloth$species)
 data_sloth$season         <- as.factor(data_sloth$season)
@@ -50,8 +47,10 @@ data_sloth$microfilaria   <- as.factor(data_sloth$microfilaria)
 data_sloth$trypanosome    <- as.factor(data_sloth$trypanosome)
 data_sloth$babesia        <- as.factor(data_sloth$babesia)
 data_sloth$bloodparasite  <- as.factor(data_sloth$bloodparasite)
+```
 
-# Load libraries for analysis
+Load libraries for analysis
+```
 library(binom)
 library(dplyr)
 library(MASS)
@@ -66,7 +65,7 @@ library(RColorBrewer)
 ```
 
 ## Step 3. Calculate *Anaplasma* infection prevalence
-Calculate _Anaplasma_ infection prevalence and 95% confidence interval for Bradypus tridactylus (Bt) and _Choloepus didactylus_ (Cd)
+Calculate _Anaplasma_ infection prevalence and 95% confidence interval for _Bradypus tridactylus_ (Bt) and _Choloepus didactylus_ (Cd)
 
 ```
 prevalence_results <- data_sloth %>% group_by(species) %>% summarise(n = n(), positives = sum(anaplasma == 1), prevalence = positives / n, conf_low = binom.confint(positives, n, conf.level = 0.95, methods = "exact")$lower, conf_high = binom.confint(positives, n, conf.level = 0.95, methods = "exact")$upper)
