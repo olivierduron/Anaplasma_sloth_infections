@@ -18,7 +18,10 @@ In this study, we used data from clinical evaluations conducted in French Guiana
 - microfilaria: Infection status with microfilariae (0: Uninfected; 1: Infected)
 - trypanosome: Infection status with trypanosomes (0: Uninfected; 1: Infected)
 - babesia: Infection status with _Babesia_ (0: Uninfected; 1: Infected)
-- blood_parasites: Combined infection status for blood parasites (microfilariae + trypanosome + Babesia; 0: Uninfected; 1: Infected)
+- blood_parasites: Combined infection status for blood parasites (microfilariae + trypanosome + _Babesia_, but excluding _Anaplasma_; 0: Uninfected; 1: Infected)
+Details about all the experimental methods and measures are available in the related manuscript.
 
-Step 1. Retrieving data
+Step 1. Retrieving the data
+All veterinary clinical data for the two sloth species are available here: XXX.
+This database will be referred to as data_sloth throughout the R command lines and scripts provided below. It corresponds to the dataset provided in Table S1 of the related manuscript.
 
