@@ -1,6 +1,6 @@
 # **R command lines and script**
 
-We analyzed data from 175 wild sloths captured between 1994 and 1995 during the flooding of the Petit Saut Dam (French Guiana, South America). The clinical data include the following variables for each examined sloth: 
+We analyzed data from 175 wild sloths captured between 1994 and 1995 during the flooding of the Petit Saut Dam (5°03′43″ N, 53°03′00″ O) on the Sinnamary River (French Guiana, South America). The clinical data include the following variables for each examined sloth: 
 - `species` : Sloth species (Bt: *Bradypus tridactylus*; Cd: *Choloepus didactylus*)
 - `sex` : Sex of the sloth (F: Female; M: Male)
 - `age_class` : Age category (A: Adult; J: Juvenile)
@@ -65,7 +65,7 @@ library(survival)
 library(RColorBrewer)
 ```
 
-## Step 3. Calculate Anaplasma infection prevalence
+## Step 3. Calculate *Anaplasma* infection prevalence
 ```
 # Calculate Anaplasma infection prevalence and 95% confidence interval for Bradypus tridactylus (Bt) and Choloepus didactylus (Cd)
 prevalence_results <- data_sloth %>% group_by(species) %>% summarise(n = n(), positives = sum(anaplasma == 1), prevalence = positives / n, conf_low = binom.confint(positives, n, conf.level = 0.95, methods = "exact")$lower, conf_high = binom.confint(positives, n, conf.level = 0.95, methods = "exact")$upper)
