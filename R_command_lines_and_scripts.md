@@ -332,6 +332,164 @@ odds ratio
 2.892291 
 ```
 
-## Step 6. Test xxxx
+## Step 6. Test whether the proportion of sloths carrying ticks and the prevalence of blood parasites vary between seasons
+Test whether the proportion of sloths carrying `tick` and `bloodparasite` differs across `season` in Bt:
+```
+chisq.test(table(data_Bt$tick, data_Bt$season))
+chisq.test(table(data_Bt$season, data_Bt$bloodparasite))
+```
 
-xxx
+Results are:
+```
+Pearson's Chi-squared test with Yates' continuity correction
+data:  table(data_Bt$tick, data_Bt$season)
+X-squared = 4.1762e-31, df = 1, p-value = 1
+
+data:  table(data_Bt$season, data_Bt$bloodparasite)
+X-squared = 0.74957, df = 1, p-value = 0.3866
+```
+
+Test whether the proportion of sloths carrying `tick` and `bloodparasite` differs across `season` in Cd:
+```
+chisq.test(table(data_Cd$season, data_Cd$bloodparasite))  
+chisq.test(table(data_Cd$tick, data_Cd$season))
+```
+
+Results are:
+```
+Pearson's Chi-squared test with Yates' continuity correction
+data:  table(data_Cd$season, data_Cd$bloodparasite)
+X-squared = 2.8165, df = 1, p-value = 0.0933
+
+data:  table(data_Cd$tick, data_Cd$season)
+X-squared = 4.204, df = 1, p-value = 0.04033
+```
+
+Display the proportion of Cd sloths infested with `tick` across different `season`
+```
+table_tick_season_Cd <- table(data_Cd$tick, data_Cd$season)
+table_tick_season_Cd
+```
+
+## Step 7. Impact of _Anaplasma_ infections on Scale Mass Index (SMI)
+The Scaled Mass Index (SMI) was used as a body condition indicator that standardizes individual `weight` to `body_length`, using an allometric scaling relationship. SMI was calculated following Peig & Green (2009) (https://doi.org/10.1111/j.1600-0706.2009.17643.x).
+
+Function to calculate SMI for adult Bt:
+```
+data_adult_Bt <- subset(data_Bt, age == "A")
+sma_model_Bt <- sma(log(weight) ~ log(total_length), data = data_adult_Bt)
+sma_model_Bt
+b <- coef(sma_model_Bt)[2]
+b
+L0 <- mean(data_adult_Bt$total_length, na.rm = TRUE)
+L0
+data_adult_Bt$SMI <- data_adult_Bt$weight * (L0 / data_adult_Bt$total_length)^b
+```
+
+Fit a GLM to test whether SMI is influenced by interactions among `anaplasma`, `sex`, and `season` in Bt:
+```
+model_3 <- glm(SMI ~ anaplasma * season * sex, data = data_adult_Bt, family = gaussian(link = "identity"))
+```
+
+Fit a GLM to test whether SMI is influenced by additive effects of `anaplasma`, `sex`, and `season` in Bt:
+```
+model_3a <- glm(SMI ~ anaplasma + season + sex, data = data_adult_Bt, family = gaussian(link = "identity"))
+```
+
+Compare the additive model (model_3a) to the interaction model (model_3) using a likelihood ratio test:
+```
+anova(model_3a, model_3, test = "Chisq")
+```
+
+Results are:
+```
+Analysis of Deviance Table
+Model 1: SMI ~ anaplasma + season + sex
+Model 2: SMI ~ anaplasma * season * sex
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        79     26.429                     
+2        75     24.043  4   2.3861   0.1142
+```
+
+Compute AIC for both models to evaluate model fit:
+```
+AIC(model_3, model_3a)
+```
+
+Results are:
+```
+         df      AIC
+model_3   9 150.7068
+model_3a  5 150.5604
+```
+
+Perform drop-one-term analysis on the additive model:
+```
+res <- drop1(model_3a, test = "Chisq")
+res
+```
+
+Results are:
+```
+Single term deletions
+Model:
+SMI ~ anaplasma + season + sex
+          Df Deviance    AIC scaled dev.  Pr(>Chi)    
+<none>         26.429 150.56                          
+anaplasma  1   26.855 149.89      1.3271 0.2493206    
+season     1   26.453 148.64      0.0770 0.7814389    
+sex        1   30.723 161.06     12.4943 0.0004082 ***  
+```
+
+Calculate delta AIC for each term to assess its contribution to model fit:
+```
+aic_full <- AIC(model_3a)
+res$delta_AIC <- res$AIC - aic_full
+print(res[, c("AIC", "delta_AIC")])
+```
+
+Results are:
+```
+             AIC delta_AIC
+<none>    150.56    0.0000
+anaplasma 149.89   -0.6729
+season    148.64   -1.9230
+sex       161.06   10.4943
+```
+
+Fit a linear model to test the effect of `sex` on SMI in adult Bt and assess model fit, residual normality, and heteroscedasticity:
+```
+model_3b <- glm(SMI ~ sex, data = data_adult_Bt, family = gaussian(link = "identity"))
+anova(model_3b, model_3, test = "Chisq")
+AIC(model_3b, model_3)
+shapiro.test(model_3b$residuals)
+bptest(model_3b)
+```
+
+Results are:
+```
+> anova(model_3b, model_3, test = "Chisq")
+Analysis of Deviance Table
+Model 1: SMI ~ sex
+Model 2: SMI ~ anaplasma * season * sex
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        81     26.881                     
+2        75     24.043  6   2.8382    0.182
+
+> AIC(model_3b, model_3)
+         df      AIC
+model_3b  3 147.9681
+model_3   9 150.7068
+
+> shapiro.test(model_3b$residuals)
+Shapiro-Wilk normality test
+data:  model_3b$residuals
+W = 0.99063, p-value = 0.8169
+
+> bptest(model_3b)
+studentized Breusch-Pagan test
+data:  model_3b
+BP = 2.7945, df = 1, p-value = 0.09459
+```
+
+
