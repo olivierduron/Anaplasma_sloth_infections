@@ -488,7 +488,7 @@ data:  model_3b
 BP = 2.7945, df = 1, p-value = 0.09459
 ```
 
-Calculation of mean and standard error of SMI by sex for Bt:
+Calculation of mean and standard error of `SMI` by `sex` for Bt:
 ```
 data_adult_Bt %>%
   group_by(sex) %>%
@@ -1095,7 +1095,7 @@ season    513.20   -1.4277
 sex       515.94    1.3145
 ```
 
-Fit a linear model to test the null hypothesis (SMI ~ `hematocrit`) in adult Bt, assessing model fit:
+Fit a linear model to test the null hypothesis (`hematocrit` ~ 1) in adult Bt, assessing model fit:
 ```
 model_7b <- glm(hematocrit ~ 1, data = data_adult_Bt, family = Gamma(link = "log"))
 anova(model_7b, model_7, test = "Chisq")
@@ -1118,23 +1118,10 @@ model_7b  2 513.0105
 model_7   9 521.9397
 ```
 
-Generate diagnostic plots (residuals, leverage, etc.) for the linear model model_7b to assess model fit and identify potential outliers:
+Generate diagnostic plots (residuals, leverage, etc.) for model_7b to assess model fit and identify potential outliers:
 ```
 par(mfrow = c(2,2))
 plot(model_7b)
-```
-
-Results are:
-```
-<img width="800" height="600" alt="diagnostic_model7a" src="https://github.com/user-attachments/assets/74a588ec-8d43-4707-b824-b882c6998539" />
-
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
 Fit a GLM to test whether `hematocrit` is influenced by interactions among `anaplasma`, `sex`, and `season` in Cd:
@@ -1206,4 +1193,174 @@ anaplasma 383.35    2.1984
 season    387.49    6.3362
 sex       381.22    0.0708
 ```
+
+Fit a linear model to test the model 8b (`hematocrit` ~ `anaplasma` + `season`) in adult Cd, assessing model fit:
+```
+model_8b <- glm(hematocrit ~ anaplasma + season, data = data_adult_Cd, family = Gamma(link = "log"))
+anova(model_8b, model_8, test = "Chisq")
+AIC(model_8b, model_8)
+```
+
+Results are:
+```
+> anova(model_8b, model_8, test = "Chisq")
+Analysis of Deviance Table
+Model 1: hematocrit ~ anaplasma + season
+Model 2: hematocrit ~ anaplasma * season * sex
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        57     1.2001                     
+2        52     1.1006  5 0.099531    0.392
+
+> AIC(model_8b, model_8)
+         df      AIC
+model_8b  4 381.1227
+model_8   9 385.9115
+```
+
+Generate diagnostic plots (residuals, leverage, etc.) for model_8b to assess model fit and identify potential outliers:
+```
+par(mfrow = c(2,2))
+plot(model_8b)
+```
+
+Calculation of mean and standard error of `hematocrit` by `anaplasma` for Cd:
+```
+data_adult_Cd %>%
+  group_by(anaplasma) %>%
+  summarise(
+    mean_hematocrit = mean(hematocrit, na.rm = TRUE),
+    se_hematocrit = sd(hematocrit, na.rm = TRUE) / sqrt(sum(!is.na(hematocrit)))
+  )
+
+Results are:
+```
+A tibble: 2 × 3
+  anaplasma mean_hematocrit se_hematocrit
+  <fct>               <dbl>         <dbl>
+1 0                    39.6         0.675
+2 1                    37.6         1.32 
+```
+
+Calculation of mean and standard error of `hematocrit` by `season` for Cd:
+```
+data_adult_Cd %>%
+  group_by(season) %>%
+  summarise(
+    mean_hematocrit = mean(hematocrit, na.rm = TRUE),
+    se_hematocrit = sd(hematocrit, na.rm = TRUE) / sqrt(sum(!is.na(hematocrit)))
+  )
+  ```
+
+Results are:
+```
+A tibble: 2 × 3
+  season mean_hematocrit se_hematocrit
+  <fct>            <dbl>         <dbl>
+1 D                 37.6         0.892
+2 W                 41.1         0.944
+```
+
+Fit a GLM to test whether `hematocrit` is influenced by interactions among `anaplasma`, `sex`, and `season` in Cd (with the exclusion of four outlier observations with `hematocrit` values below 30%):
+```
+model_9 <- glm(hematocrit ~ anaplasma * season * sex, data = data_adult_Cd, family = Gamma(link = "log"), subset = hematocrit >= 30)
+```
+
+Fit a GLM to test whether `hematocrit` is influenced by additive effects of `anaplasma`, `sex`, and `season` in Cd (with the exclusion of four outlier observations with `hematocrit` values below 30%):
+```
+model_9a <- glm(hematocrit ~ anaplasma + season + sex, data = data_adult_Cd, family = Gamma(link = "log"), subset = hematocrit >= 30)
+```
+
+Compare the additive model (model_9a) to the interaction model (model_9) using a likelihood ratio test:
+```
+anova(model_9a, model_9, test = "Chisq")
+```
+
+Results are:
+```
+Analysis of Deviance Table
+Model 1: hematocrit ~ anaplasma + season + sex
+Model 2: hematocrit ~ anaplasma * season * sex
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        54    0.65076                     
+2        50    0.62506  4   0.0257   0.7296
+```
+
+Compute AIC for both models to evaluate model fit:
+```
+AIC(model_9, model_9a)
+```
+
+Results are:
+```
+         df      AIC
+model_9   9 345.0484
+model_9a  5 339.3897
+```
+
+Perform drop-one-term analysis on the additive model:
+```
+res <- drop1(model_9a, test = "Chisq")
+```
+
+Results are:
+```
+Single term deletions
+Model:
+hematocrit ~ anaplasma + season + sex
+          Df Deviance    AIC scaled dev. Pr(>Chi)  
+<none>        0.65076 339.39                       
+anaplasma  1  0.67203 339.12      1.7305  0.18835  
+season     1  0.72612 343.52      6.1318  0.01328 *
+sex        1  0.65589 337.81      0.4178  0.51803  
+```
+
+Calculate delta AIC for each term to assess its contribution to model fit:
+```
+aic_full <- AIC(model_9a)
+res$delta_AIC <- res$AIC - aic_full
+print(res[, c("AIC", "delta_AIC")])
+```
+
+Results are:
+```
+             AIC delta_AIC
+<none>    339.39    0.0000
+anaplasma 339.12   -0.2695
+season    343.52    4.1318
+sex       337.81   -1.5822
+```
+
+Fit a linear model to test the model 8b (`hematocrit` ~ `season`) in adult Cd, assessing model fit (with the exclusion of four outlier observations with `hematocrit` values below 30%):
+```
+model_9b <- glm(hematocrit ~ season, data = data_adult_Cd, family = Gamma(link = "log"), subset = hematocrit >= 30)
+anova(model_9b, model_9, test = "Chisq")
+AIC(model_9b, model_9)
+```
+
+Results are:
+```
+Analysis of Deviance Table
+Model 1: hematocrit ~ season
+Model 2: hematocrit ~ anaplasma * season * sex
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        56    0.67789                     
+2        50    0.62506  6 0.052834   0.6523
+
+> AIC(model_9b, model_9)
+         df      AIC
+model_9b  3 337.7635
+model_9   9 345.0484
+```
+
+Generate diagnostic plots (residuals, leverage, etc.) for model_8b to assess model fit and identify potential outliers:
+```
+par(mfrow = c(2,2))
+plot(model_9b)
+```
+
+
+
+
+
+
 
