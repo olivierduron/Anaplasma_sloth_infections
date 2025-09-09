@@ -511,7 +511,7 @@ A tibble: 2 × 3
 2 M         4.83 0.0997
 ```
 
->Post hoc power analyses for SMI tests in Bt:
+Post hoc power analyses for SMI tests in Bt:
 ```
 n <- nrow(na.omit(data_adult_Bt[, c("SMI", "anaplasma", "season", "sex")]))
 k <- 7
