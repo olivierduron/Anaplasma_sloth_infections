@@ -94,7 +94,7 @@ data:  table(data_sloth$anaplasma, data_sloth$species)
 X-squared = 3.3261, df = 1, p-value = 0.06819
 ```
 
-## Step 4. Test whether _Anaplasma_ infection prevalence is influenced in _Bradypus tridactylus_ (Bt) by sex, age, season, ticks and blood parasites
+## Step 4. Test whether _Anaplasma_ infection prevalence in _Bradypus tridactylus_ (Bt) is influenced by sex, age, season, ticks and blood parasites
 Create a subset `data_Bt` containing only records for _Bradypus tridactylus_ (Bt):
 
 ```
@@ -213,7 +213,7 @@ odds ratio
 0
 ```
 
-## Step 5. Test whether _Anaplasma_ infection prevalence is influenced in _Choloepus didactylus_ (Cd) by sex, age, season, ticks and blood parasites
+## Step 5. Test whether _Anaplasma_ infection prevalence in _Choloepus didactylus_ (Cd) is influenced by sex, age, season, ticks and blood parasites
 
 Create a subset `data_Cd` containing only records for _Choloepus didactylus_ (Cd):
 ```
@@ -333,7 +333,7 @@ odds ratio
 2.892291 
 ```
 
-## Step 6. Test whether the proportion of sloths carrying ticks and the prevalence of blood parasites vary between seasons
+## Step 6. Test whether the proportion of sloths carrying ticks and blood parasites vary between seasons
 Test whether the proportion of sloths carrying `tick` and `bloodparasite` differs across `season` in Bt:
 ```
 chisq.test(table(data_Bt$tick, data_Bt$season))
