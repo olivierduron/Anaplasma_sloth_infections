@@ -94,7 +94,7 @@ data:  table(data_sloth$anaplasma, data_sloth$species)
 X-squared = 3.3261, df = 1, p-value = 0.06819
 ```
 
-## Step 4. Test whether _Anaplasma_ infection prevalence in _Bradypus tridactylus_ (Bt) is influenced by sex, age, season, ticks and blood parasites
+## Step 4. Test whether _Anaplasma_ infection prevalence in _Bradypus tridactylus_ (Bt) is influenced by sex, age, season, ticks and blood parasites (GLM model 1)
 Create a subset `data_Bt` containing only records for _Bradypus tridactylus_ (Bt):
 
 ```
@@ -141,7 +141,6 @@ model_1a  6 128.7350
 Perform drop-one-term analysis on the additive model:
 ```
 res <- drop1(model_1a, test = "Chisq")
-res
 ```
 
 Results are:
@@ -213,7 +212,7 @@ odds ratio
 0
 ```
 
-## Step 5. Test whether _Anaplasma_ infection prevalence in _Choloepus didactylus_ (Cd) is influenced by sex, age, season, ticks and blood parasites
+## Step 5. Test whether _Anaplasma_ infection prevalence in _Choloepus didactylus_ (Cd) is influenced by sex, age, season, ticks and blood parasites (GLM model 2)
 
 Create a subset `data_Cd` containing only records for _Choloepus didactylus_ (Cd):
 ```
@@ -260,7 +259,6 @@ model_2a  6 118.5250
 Perform drop-one-term analysis on the additive model:
 ```
 res <- drop1(model_2a, test = "Chisq")
-res
 ```
 
 Results are:
@@ -372,7 +370,7 @@ table_tick_season_Cd <- table(data_Cd$tick, data_Cd$season)
 table_tick_season_Cd
 ```
 
-## Step 7. Impact of _Anaplasma_ infections on Scale Mass Index (SMI)
+## Step 7. Impact of _Anaplasma_ infections on Scale Mass Index (SMI) (GLM models 3 and 4)
 The Scaled Mass Index (SMI) was used as a body condition indicator that standardizes individual `weight` to `body_length`, using an allometric scaling relationship. SMI was calculated following Peig & Green (2009) (https://doi.org/10.1111/j.1600-0706.2009.17643.x).
 
 Function to calculate SMI for adult Bt:
@@ -425,7 +423,6 @@ model_3a  5 150.5604
 Perform drop-one-term analysis on the additive model:
 ```
 res <- drop1(model_3a, test = "Chisq")
-res
 ```
 
 Results are:
@@ -663,7 +660,6 @@ model_4a  5 134.6278
 Perform drop-one-term analysis on the additive model:
 ```
 res <- drop1(model_4a, test = "Chisq")
-res
 ```
 
 Results are:
@@ -827,7 +823,7 @@ ggplot() +
   )
 ```
 
-## Step 8. Impact of _Anaplasma_ infections on neck circumference
+## Step 8. Impact of _Anaplasma_ infections on neck circumference (GLM models 5 and 6)
 
 Fit a GLM to test whether neck circumference is influenced by interactions among `anaplasma`, `sex`, and `season` in Bt:
 ```
@@ -1026,5 +1022,188 @@ model_6   9 -66.16370
 Shapiro-Wilk normality test
 data:  model_6b$residuals
 W = 0.97242, p-value = 0.3137
+```
+
+## Step 9. Impact of _Anaplasma_ infections on hematocrit levels (GLM models 7, 8 and 9)
+Fit a GLM to test whether `hematocrit` is influenced by interactions among `anaplasma`, `sex`, and `season` in Bt:
+```
+model_7 <- glm(hematocrit ~ anaplasma * season * sex, data = data_adult_Bt, family = Gamma(link = "log"))
+```
+
+Fit a GLM to test whether `hematocrit` is influenced by additive effects of `anaplasma`, `sex`, and `season` in Bt:
+```
+model_7a <- glm(hematocrit ~ anaplasma + season + sex, data = data_adult_Bt, family = Gamma(link = "log"))
+```
+
+Compare the additive model (model_7a) to the interaction model (model_7) using a likelihood ratio test:
+```
+anova(model_7a, model_7, test = "Chisq")
+```
+
+Results are:
+```
+Analysis of Deviance Table
+Model 1: hematocrit ~ anaplasma + season + sex
+Model 2: hematocrit ~ anaplasma * season * sex
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        80     1.3305                     
+2        76     1.3196  4 0.010861   0.9606
+```
+
+Compute AIC for both models to evaluate model fit:
+```
+AIC(model_7, model_7a)
+```
+
+Results are:
+```
+         df      AIC
+model_7   9 521.9397
+model_7a  5 514.6301
+```
+
+Perform drop-one-term analysis on the additive model:
+```
+res <- drop1(model_7a, test = "Chisq")
+```
+
+Results are:
+```
+Single term deletions
+Model:
+hematocrit ~ anaplasma + season + sex
+          Df Deviance    AIC scaled dev. Pr(>Chi)  
+<none>         1.3305 514.63                       
+anaplasma  1   1.3327 512.76      0.1334  0.71490  
+season     1   1.3400 513.20      0.5723  0.44933  
+sex        1   1.3859 515.94      3.3145  0.06867 .
+```
+
+Calculate delta AIC for each term to assess its contribution to model fit:
+```
+aic_full <- AIC(model_7a)
+res$delta_AIC <- res$AIC - aic_full
+print(res[, c("AIC", "delta_AIC")])
+```
+
+Results are:
+```
+             AIC delta_AIC
+<none>    514.63    0.0000
+anaplasma 512.76   -1.8666
+season    513.20   -1.4277
+sex       515.94    1.3145
+```
+
+Fit a linear model to test the null hypothesis (SMI ~ `hematocrit`) in adult Bt, assessing model fit:
+```
+model_7b <- glm(hematocrit ~ 1, data = data_adult_Bt, family = Gamma(link = "log"))
+anova(model_7b, model_7, test = "Chisq")
+AIC(model_7b, model_7)
+```
+
+Results are:
+```
+> anova(model_7b, model_7, test = "Chisq")
+Analysis of Deviance Table
+Model 1: hematocrit ~ 1
+Model 2: hematocrit ~ anaplasma * season * sex
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        83     1.4015                     
+2        76     1.3196  7 0.081886   0.6976
+
+> AIC(model_7b, model_7)
+         df      AIC
+model_7b  2 513.0105
+model_7   9 521.9397
+```
+
+Generate diagnostic plots (residuals, leverage, etc.) for the linear model model_7b to assess model fit and identify potential outliers:
+```
+par(mfrow = c(2,2))
+plot(model_7b)
+```
+
+Results are:
+```
+<img width="800" height="600" alt="diagnostic_model7a" src="https://github.com/user-attachments/assets/74a588ec-8d43-4707-b824-b882c6998539" />
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+```
+
+Fit a GLM to test whether `hematocrit` is influenced by interactions among `anaplasma`, `sex`, and `season` in Cd:
+```
+model_8 <- glm(hematocrit ~ anaplasma * season * sex, data = data_adult_Cd, family = Gamma(link = "log"))
+```
+
+Fit a GLM to test whether `hematocrit` is influenced by additive effects of `anaplasma`, `sex`, and `season` in Cd:
+```
+model_8a <- glm(hematocrit ~ anaplasma + season + sex, data = data_adult_Cd, family = Gamma(link = "log"))
+```
+
+Compare the additive model (model_8a) to the interaction model (model_8) using a likelihood ratio test:
+```
+anova(model_8a, model_8, test = "Chisq")
+```
+
+Results are:
+```
+Analysis of Deviance Table
+Model 1: hematocrit ~ anaplasma + season + sex
+Model 2: hematocrit ~ anaplasma * season * sex
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        56     1.1615                     
+2        52     1.1006  4 0.060872   0.5281
+```
+
+Compute AIC for both models to evaluate model fit:
+```
+AIC(model_8, model_8a)
+```
+
+Results are:
+```
+         df      AIC
+model_8   9 385.9115
+model_8a  5 381.1516
+```
+
+Perform drop-one-term analysis on the additive model:
+```
+res <- drop1(model_8a, test = "Chisq")
+```
+
+Results are:
+```
+Single term deletions
+Model:
+hematocrit ~ anaplasma + season + sex
+          Df Deviance    AIC scaled dev. Pr(>Chi)   
+<none>         1.1615 381.15                        
+anaplasma  1   1.2398 383.35      4.1984 0.040463 * 
+season     1   1.3171 387.49      8.3362 0.003886 **
+sex        1   1.2001 381.22      2.0708 0.150145   
+```
+
+Calculate delta AIC for each term to assess its contribution to model fit:
+```
+aic_full <- AIC(model_8a)
+res$delta_AIC <- res$AIC - aic_full
+print(res[, c("AIC", "delta_AIC")])
+```
+
+Results are:
+```
+             AIC delta_AIC
+<none>    381.15    0.0000
+anaplasma 383.35    2.1984
+season    387.49    6.3362
+sex       381.22    0.0708
 ```
 
