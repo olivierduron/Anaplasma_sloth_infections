@@ -1593,7 +1593,8 @@ season    66.368   -1.7735
 sex       66.246   -1.8950
 ```
 
-Fit a linear model to test the null hypothesis (temp ~ 1) in adult Cd, assessing model fit
+Fit a linear model to test the null hypothesis (temp ~ 1) in adult Cd, assessing model fit:
+```
 model_11b <- survreg(temp ~ 1, data = data_adult_Cd, dist = "gaussian")
 anova(model_11b, model_11, test = "Chisq")
 AIC(model_11b, model_11)
@@ -1617,3 +1618,14 @@ Generate a QQ-plot of deviance residuals from model_10b to visually assess norma
 resid_temp <- residuals(model_11b, type = "deviance")
 qqnorm(resid_temp)
 qqline(resid_temp, col = "red", lwd = 1)
+```
+
+## Step 11. Impact of _Anaplasma_ infections on general health condition 
+xxx
+
+## Step 12. Impact of _Anaplasma_ infections on female reproductive status 
+xxx
+
+
+
+
