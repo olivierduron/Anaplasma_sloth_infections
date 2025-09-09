@@ -493,7 +493,50 @@ data:  model_3b
 BP = 2.7945, df = 1, p-value = 0.09459
 ```
 
-Generate SMI chart for Bt
+Calculation of mean and standard error of SMI by sex for Bt:
+```
+data_adult_Bt %>%
+  group_by(sex) %>%
+  summarise(
+    mean_SMI = mean(SMI, na.rm = TRUE),
+    se_SMI = sd(SMI, na.rm = TRUE) / sqrt(sum(!is.na(SMI))))
+```
+
+Results are:
+```
+A tibble: 2 × 3
+  sex   mean_SMI se_SMI
+  <fct>    <dbl>  <dbl>
+1 F         4.39 0.0772
+2 M         4.83 0.0997
+```
+
+>Post hoc power analyses for SMI tests in Bt:
+```
+n <- nrow(na.omit(data_adult_Bt[, c("SMI", "anaplasma", "season", "sex")]))
+k <- 7
+pwr.f2.test(u = k, v = n - k - 1, f2 = 0.30, sig.level = 0.05)
+pwr.f2.test(u = k, v = n - k - 1, f2 = 0.20, sig.level = 0.05)
+```
+
+Results are:
+```
+Multiple regression power calculation (f2 = 0.30)
+u = 7
+v = 75
+f2 = 0.3
+sig.level = 0.05
+power = 0.9580486
+and
+Multiple regression power calculation (f2 = 0.20)
+u = 7
+v = 75
+f2 = 0.2
+sig.level = 0.05
+power = 0.824756
+```
+
+Generate SMI chart for Bt:
 ```
 clean_data <- data_adult_Bt %>%
   filter(
