@@ -493,5 +493,83 @@ data:  model_3b
 BP = 2.7945, df = 1, p-value = 0.09459
 ```
 
-
+Generate SMI chart for Bt
+```
+clean_data <- data_adult_Bt %>%
+  filter(
+    !is.na(weight), !is.na(total_length), !is.na(SMI),
+    is.finite(weight), is.finite(total_length), is.finite(SMI)
+  ) %>%
+  mutate(
+    sex_infect = case_when(
+      sex == "M" & anaplasma == 0 ~ "Male, uninfected",
+      sex == "M" & anaplasma == 1 ~ "Male, infected",
+      sex == "F" & anaplasma == 0 ~ "Female, uninfected",
+      sex == "F" & anaplasma == 1 ~ "Female, infected",
+      TRUE ~ NA_character_
+    )
+  )
+levels_order <- c("Male, uninfected", "Male, infected", "Female, uninfected", "Female, infected")
+clean_data <- clean_data %>%
+  mutate(
+    sex_infect = factor(sex_infect, levels = levels_order),
+    point_size = case_when(
+      sex_infect %in% c("Male, uninfected", "Male, infected") ~ 3.25,
+      TRUE ~ 4  # taille normale pour les cercles
+    )
+  )
+interp_data <- with(clean_data, akima::interp(
+  x = weight,
+  y = total_length,
+  z = SMI,
+  duplicate = "mean",
+  extrap = FALSE
+))
+interp_df <- expand.grid(
+  x = interp_data$x,
+  y = interp_data$y
+)
+interp_df$z <- as.vector(interp_data$z)
+legend_point_sizes <- c(3.25, 3.25, 4, 4) / 2
+ggplot() +
+  geom_contour_filled(data = interp_df, aes(x = x, y = y, z = z)) +
+  geom_point(
+    data = clean_data,
+    aes(
+      x = weight,
+      y = total_length,
+      shape = sex_infect,
+      size = point_size
+    ),
+    color = "black",
+    stroke = 1
+  ) +
+  scale_fill_brewer(palette = "Green", name = "SMI level") +
+  scale_shape_manual(
+    name = expression(paste(italic("Anaplasma"), " infection status")),
+    values = c(
+      "Male, uninfected" = 0,
+      "Male, infected" = 12,
+      "Female, uninfected" = 1,
+      "Female, infected" = 10
+    )
+  ) +
+  scale_size_identity(guide = "none") + 
+  guides(
+    shape = guide_legend(override.aes = list(size = legend_point_sizes))
+  ) +
+  labs(
+    x = "Body mass (kg)",
+    y = "Total Length (cm)",
+    title = expression(paste("Scale Mass Index (SMI) of ", italic("Bradypus tridactylus")))
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    legend.position = "right",
+    panel.border = element_rect(color = "black", fill = NA, size = 1),
+    panel.background = element_blank(),
+    axis.title = element_text(size = 16),
+    axis.text = element_text(size = 14)
+  )
+```
 
