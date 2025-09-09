@@ -827,6 +827,204 @@ ggplot() +
   )
 ```
 
-## Step 8. Impact of _Anaplasma_ infections on xxx
-The xxx
+## Step 8. Impact of _Anaplasma_ infections on neck circumference
+
+Fit a GLM to test whether neck circumference is influenced by interactions among `anaplasma`, `sex`, and `season` in Bt:
+```
+model_5 <- glm(log(neck_size) ~ anaplasma * season * sex, data = data_adult_Bt, family = gaussian(link = "identity"))
+```
+
+Fit a GLM to test whether SMI is influenced by additive effects of `anaplasma`, `sex`, and `season` in Bt:
+```
+model_5a <- glm(log(neck_size) ~ anaplasma + season + sex, data = data_adult_Bt, family = gaussian(link = "identity"))
+```
+
+Compare the additive model (model_5a) to the interaction model (model_5) using a likelihood ratio test:
+```
+anova(model_5a, model_5, test = "Chisq")
+```
+
+Results are:
+```
+Analysis of Deviance Table
+Model 1: log(neck_size) ~ anaplasma + season + sex
+Model 2: log(neck_size) ~ anaplasma * season * sex
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        57    0.49104                     
+2        53    0.48101  4 0.010032   0.8934
+```
+
+Compute AIC for both models to evaluate model fit:
+```
+AIC(model_5, model_5a)
+```
+
+Results are:
+```
+         df       AIC
+model_5   9 -104.2969
+model_5a  5 -111.0378
+```
+
+
+Perform drop-one-term analysis on the additive model:
+```
+res <- drop1(model_5a, test = "Chisq")
+```
+
+Results are:
+```
+Single term deletions
+Model:
+log(neck_size) ~ anaplasma + season + sex
+          Df Deviance     AIC scaled dev. Pr(>Chi)  
+<none>        0.49104 -111.04                       
+anaplasma  1  0.49589 -112.44     0.59895  0.43898  
+season     1  0.49389 -112.69     0.35268  0.55260  
+sex        1  0.51549 -110.07     2.96411  0.08513
+```
+
+Calculate delta AIC for each term to assess its contribution to model fit:
+```
+aic_full <- AIC(model_5a)
+res$delta_AIC <- res$AIC - aic_full
+print(res[, c("AIC", "delta_AIC")])
+```
+
+Results are:
+```
+              AIC delta_AIC
+<none>    -111.04   0.00000
+anaplasma -112.44  -1.40105
+season    -112.69  -1.64732
+sex       -110.07   0.96411
+```
+
+Fit a linear model to test the null hypothesis (SMI ~ `neck_size`) in adult Bt, assessing model fit and checking residual normality:
+```
+model_5b <- glm(log(neck_size) ~ 1, data = data_adult_Bt, family = gaussian(link = "identity"))
+anova(model_5b, model_5, test = "Chisq")
+AIC(model_5b, model_5)
+shapiro.test(model_5b$residuals)
+```
+
+Results are:
+```
+> anova(model_5b, model_5, test = "Chisq")
+Analysis of Deviance Table
+Model 1: log(neck_size) ~ 1
+Model 2: log(neck_size) ~ anaplasma * season * sex
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        60    0.52778                     
+2        53    0.48101  7 0.046776   0.6412
+
+> AIC(model_5b, model_5)
+         df       AIC
+model_5b  2 -112.6360
+model_5   9 -104.2969
+
+> shapiro.test(model_5b$residuals)
+Shapiro-Wilk normality test
+data:  model_5b$residuals
+W = 0.96651, p-value = 0.09328
+```
+
+Fit a GLM to test whether neck circumference is influenced by interactions among `anaplasma`, `sex`, and `season` in Cd:
+```
+model_6 <- glm(log(neck_size) ~ anaplasma * season * sex, data = data_adult_Cd, family = gaussian(link = "identity"))
+```
+
+Fit a GLM to test whether SMI is influenced by additive effects of `anaplasma`, `sex`, and `season` in Cd:
+```
+model_6a <- glm(log(neck_size) ~ anaplasma + season + sex, data = data_adult_Cd, family = gaussian(link = "identity"))
+```
+
+Compare the additive model (model_6a) to the interaction model (model_6) using a likelihood ratio test:
+```
+anova(model_6a, model_6, test = "Chisq")
+```
+
+Results are:
+```
+Analysis of Deviance Table
+Model 1: log(neck_size) ~ anaplasma + season + sex
+Model 2: log(neck_size) ~ anaplasma * season * sex
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        44    0.56030                     
+2        40    0.48671  4 0.073594   0.1956
+```
+
+Compute AIC for both models to evaluate model fit:
+```
+AIC(model_6, model_6a)
+```
+
+Results are:
+```
+         df       AIC
+model_6   9 -66.16370
+model_6a  5 -67.40481
+```
+
+Perform drop-one-term analysis on the additive model:
+```
+res <- drop1(model_6a, test = "Chisq")
+```
+
+Results are:
+```
+Single term deletions
+Model:
+log(neck_size) ~ anaplasma + season + sex
+          Df Deviance     AIC scaled dev. Pr(>Chi)
+<none>        0.56030 -67.405                     
+anaplasma  1  0.56124 -69.324     0.08052   0.7766
+season     1  0.58022 -67.728     1.67690   0.1953
+sex        1  0.57931 -67.804     1.60083   0.2058
+```
+
+Calculate delta AIC for each term to assess its contribution to model fit:
+```
+aic_full <- AIC(model_6a)
+res$delta_AIC <- res$AIC - aic_full
+print(res[, c("AIC", "delta_AIC")])
+```
+
+Results are:
+```
+              AIC delta_AIC
+<none>    -67.405   0.00000
+anaplasma -69.324  -1.91948
+season    -67.728  -0.32310
+sex       -67.804  -0.39917
+```
+
+Fit a linear model to test the null hypothesis (SMI ~ `neck_size`) in adult Cd, assessing model fit and checking residual normality:
+```
+model_6b <- glm(log(neck_size) ~ 1, data = data_adult_Cd, family = gaussian(link = "identity"))
+anova(model_6b, model_6, test = "Chisq")
+AIC(model_6b, model_6)
+shapiro.test(model_6b$residuals)
+```
+
+Results are:
+```
+> anova(model_6b, model_6, test = "Chisq")
+Analysis of Deviance Table
+Model 1: log(neck_size) ~ 1
+Model 2: log(neck_size) ~ anaplasma * season * sex
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        47    0.60752                     
+2        40    0.48671  7  0.12081   0.1927
+
+> AIC(model_6b, model_6)
+         df       AIC
+model_6b  2 -69.52144
+model_6   9 -66.16370
+
+> shapiro.test(model_6b$residuals)
+Shapiro-Wilk normality test
+data:  model_6b$residuals
+W = 0.97242, p-value = 0.3137
+```
 
