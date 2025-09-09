@@ -896,7 +896,7 @@ season    -112.69  -1.64732
 sex       -110.07   0.96411
 ```
 
-Fit a linear model to test the null hypothesis (SMI ~ `neck_size`) in adult Bt, assessing model fit and checking residual normality:
+Fit a linear model to test the null hypothesis (`neck_size` ~ 1) in adult Bt, assessing model fit and checking residual normality:
 ```
 model_5b <- glm(log(neck_size) ~ 1, data = data_adult_Bt, family = gaussian(link = "identity"))
 anova(model_5b, model_5, test = "Chisq")
@@ -995,7 +995,7 @@ season    -67.728  -0.32310
 sex       -67.804  -0.39917
 ```
 
-Fit a linear model to test the null hypothesis (SMI ~ `neck_size`) in adult Cd, assessing model fit and checking residual normality:
+Fit a linear model to test the null hypothesis (`neck_size` ~ 1) in adult Cd, assessing model fit and checking residual normality:
 ```
 model_6b <- glm(log(neck_size) ~ 1, data = data_adult_Cd, family = gaussian(link = "identity"))
 anova(model_6b, model_6, test = "Chisq")
@@ -1076,7 +1076,7 @@ hematocrit ~ anaplasma + season + sex
 <none>         1.3305 514.63                       
 anaplasma  1   1.3327 512.76      0.1334  0.71490  
 season     1   1.3400 513.20      0.5723  0.44933  
-sex        1   1.3859 515.94      3.3145  0.06867 .
+sex        1   1.3859 515.94      3.3145  0.06867
 ```
 
 Calculate delta AIC for each term to assess its contribution to model fit:
@@ -1194,7 +1194,7 @@ season    387.49    6.3362
 sex       381.22    0.0708
 ```
 
-Fit a linear model to test the model 8b (`hematocrit` ~ `anaplasma` + `season`) in adult Cd, assessing model fit:
+Fit a linear model to test the model_8b (`hematocrit` ~ `anaplasma` + `season`) in adult Cd, assessing model fit:
 ```
 model_8b <- glm(hematocrit ~ anaplasma + season, data = data_adult_Cd, family = Gamma(link = "log"))
 anova(model_8b, model_8, test = "Chisq")
@@ -1231,6 +1231,7 @@ data_adult_Cd %>%
     mean_hematocrit = mean(hematocrit, na.rm = TRUE),
     se_hematocrit = sd(hematocrit, na.rm = TRUE) / sqrt(sum(!is.na(hematocrit)))
   )
+```
 
 Results are:
 ```
@@ -1249,7 +1250,7 @@ data_adult_Cd %>%
     mean_hematocrit = mean(hematocrit, na.rm = TRUE),
     se_hematocrit = sd(hematocrit, na.rm = TRUE) / sqrt(sum(!is.na(hematocrit)))
   )
-  ```
+```
 
 Results are:
 ```
@@ -1330,7 +1331,7 @@ season    343.52    4.1318
 sex       337.81   -1.5822
 ```
 
-Fit a linear model to test the model 8b (`hematocrit` ~ `season`) in adult Cd, assessing model fit (with the exclusion of four outlier observations with `hematocrit` values below 30%):
+Fit a linear model to test the model_8b (`hematocrit` ~ `season`) in adult Cd, assessing model fit (with the exclusion of four outlier observations with `hematocrit` values below 30%):
 ```
 model_9b <- glm(hematocrit ~ season, data = data_adult_Cd, family = Gamma(link = "log"), subset = hematocrit >= 30)
 anova(model_9b, model_9, test = "Chisq")
@@ -1352,15 +1353,267 @@ model_9b  3 337.7635
 model_9   9 345.0484
 ```
 
-Generate diagnostic plots (residuals, leverage, etc.) for model_8b to assess model fit and identify potential outliers:
+Generate diagnostic plots for model_8b to assess model fit and identify potential outliers:
 ```
 par(mfrow = c(2,2))
 plot(model_9b)
 ```
 
+Create Figure 4 (violin plots for `hematocrit`)
+```
+label_style <- element_text(size = 14, face = "bold")
+pA <- ggplot(data_adult_Bt, aes(x = factor(anaplasma, levels = c(0, 1), labels = c("Uninfected", "Infected")),
+                                y = hematocrit)) +
+  geom_violin(fill = "lightblue", color = "black", alpha = 0.7, trim = FALSE) +
+  geom_boxplot(width = 0.1, fill = "white", outlier.shape = NA, color = "black") +
+  geom_jitter(width = 0.15, size = 1.5, alpha = 0.5) +
+  labs(x = "Anaplasma Infection Status",
+       y = "Hematocrit (%)",
+       title = "A") +
+  theme_minimal() +
+  theme(plot.title = label_style)
+pB <- ggplot(data_adult_Bt, aes(x = factor(season, levels = c("D", "W"), labels = c("Dry", "Wet")),
+                                y = hematocrit)) +
+  geom_violin(fill = "lightblue", color = "black", alpha = 0.7, trim = FALSE) +
+  geom_boxplot(width = 0.1, fill = "white", outlier.shape = NA, color = "black") +
+  geom_jitter(width = 0.15, size = 1.5, alpha = 0.5) +
+  labs(x = "Season", y = "Hematocrit (%)", title = "B") +
+  theme_minimal() +
+  theme(plot.title = label_style)
+pC <- ggplot(data_adult_Bt, aes(x = factor(sex, levels = c("M", "F"), labels = c("Male", "Female")),
+                                y = hematocrit)) +
+  geom_violin(fill = "lightblue", color = "black", alpha = 0.7, trim = FALSE) +
+  geom_boxplot(width = 0.1, fill = "white", outlier.shape = NA, color = "black") +
+  geom_jitter(width = 0.15, size = 1.5, alpha = 0.5) +
+  labs(x = "Sex", y = "Hematocrit (%)", title = "C") +
+  theme_minimal() +
+  theme(plot.title = label_style)
+pD <- ggplot(data_adult_Cd, aes(x = factor(anaplasma, levels = c(0, 1), labels = c("Uninfected", "Infected")),
+                                y = hematocrit)) +
+  geom_violin(fill = "lightblue", color = "black", alpha = 0.7, trim = FALSE) +
+  geom_boxplot(width = 0.1, fill = "white", outlier.shape = NA, color = "black") +
+  geom_jitter(width = 0.15, size = 1.5, alpha = 0.5) +
+  labs(x = "Anaplasma Infection Status", y = "Hematocrit (%)", title = "D") +
+  theme_minimal() +
+  theme(plot.title = label_style)
+pE <- ggplot(data_adult_Cd, aes(x = factor(season, levels = c("D", "W"), labels = c("Dry", "Wet")),
+                                y = hematocrit)) +
+  geom_violin(fill = "lightblue", color = "black", alpha = 0.7, trim = FALSE) +
+  geom_boxplot(width = 0.1, fill = "white", outlier.shape = NA, color = "black") +
+  geom_jitter(width = 0.15, size = 1.5, alpha = 0.5) +
+  labs(x = "Season", y = "Hematocrit (%)", title = "E") +
+  theme_minimal() +
+  theme(plot.title = label_style)
+pF <- ggplot(data_adult_Cd, aes(x = factor(sex, levels = c("M", "F"), labels = c("Male", "Female")),
+                                y = hematocrit)) +
+  geom_violin(fill = "lightblue", color = "black", alpha = 0.7, trim = FALSE) +
+  geom_boxplot(width = 0.1, fill = "white", outlier.shape = NA, color = "black") +
+  geom_jitter(width = 0.15, size = 1.5, alpha = 0.5) +
+  labs(x = "Sex", y = "Hematocrit (%)", title = "F") +
+  theme_minimal() +
+  theme(plot.title = label_style)
+final_plot <- (pA | pB | pC) / (pD | pE | pF)
+print(final_plot)
+```
+
+## Step 10. Impact of _Anaplasma_ infections on body temperature (CLRM models 10 and 11)
+Convert `temperature` to numeric, handle left-censored values (<32°C) for analysis in Bt:
+```
+data_adult_Bt <- data_adult_Bt %>%
+  mutate(
+    temperature_numeric = as.numeric(ifelse(temperature == "< 32.00", 32, temperature)),
+    censored = ifelse(temperature == "< 32.00", TRUE, FALSE)
+  )
+```
+
+Create a left-censored Surv object (temp) for `temperature` in Bt:
+```
+temp <- Surv(data_adult_Bt$temperature_numeric,
+                  event = !data_adult_Bt$censored,
+                  type = "left")
+```
+
+Fit Gaussian survival regression models to test the effects of `anaplasma`, `season`, `sex` on `temperature`, with (model_10) and without (model_10b) interactions in Bt:
+```
+model_10 <- survreg(temp ~ anaplasma * season * sex, data = data_adult_Bt, dist = "gaussian")
+model_10a <- survreg(temp ~ anaplasma + season + sex, data = data_adult_Bt, dist = "gaussian")
+```
+
+Compare models using ANOVA and AIC to evaluate the contribution of interaction terms:
+```
+anova(model_10a, model_10, test = "Chisq")
+AIC(model_10a, model_10)
+```
+
+Results are:
+```
+> anova(model_10a, model_10, test = "Chisq")
+                     Terms Resid. Df    -2*LL Test Df Deviance Pr(>Chi)
+1 anaplasma + season + sex        28 80.80398      NA       NA       NA
+2 anaplasma * season * sex        24 79.63689    =  4 1.167089 0.883487
+
+> AIC(model_10a, model_10)
+          df      AIC
+model_10a  5 90.80398
+model_10   9 97.63689
+```
 
 
+Perform drop-one-term analysis on the additive model:
+```
+res <- drop1(model_10a, test = "Chisq")
+```
 
+Results are:
+```
+Single term deletions
+Model:
+temp ~ anaplasma + season + sex
+          Df    AIC    LRT Pr(>Chi)  
+<none>       90.804                  
+anaplasma  1 89.482 0.6785  0.41010  
+season     1 89.054 0.2497  0.61730  
+sex        1 93.181 4.3768  0.03643 *
+```
 
+Calculate delta AIC for each term to assess its contribution to model fit:
+```
+aic_full <- AIC(model_10a)
+res$delta_AIC <- res$AIC - aic_full
+print(res[, c("AIC", "delta_AIC")])
+```
 
+Results are:
+```
+             AIC delta_AIC
+<none>    90.804    0.0000
+anaplasma 89.482   -1.3215
+season    89.054   -1.7503
+sex       93.181    2.3768
+```
 
+Fit a linear model to test the model_10b (temp ~ sex) in adult Bt, assessing model fit:
+```
+model_10b <- survreg(temp ~ sex, data = data_adult_Bt, dist = "gaussian")
+anova(model_10b, model_10, test = "Chisq")
+AIC(model_10b, model_10)
+```
+
+Results are:
+```
+> anova(model_10b, model_10, test = "Chisq")
+                     Terms Resid. Df    -2*LL Test Df Deviance  Pr(>Chi)
+1                      sex        30 81.66861      NA       NA        NA
+2 anaplasma * season * sex        24 79.63689    =  6 2.031716 0.9167586
+
+> AIC(model_10b, model_10)
+          df      AIC
+model_10b  3 87.66861
+model_10   9 97.63689
+```
+
+Generate a QQ-plot of deviance residuals from model_10b to visually assess normality:
+```
+resid_temp <- residuals(model_10b, type = "deviance")
+qqnorm(resid_temp)
+qqline(resid_temp, col = "red", lwd = 1)
+```
+
+Convert `temperature` to numeric, handle left-censored values (<32°C) for sanalysis in Cd:
+```
+data_adult_Cd <- data_adult_Cd %>%
+  mutate(
+    temperature_numeric = as.numeric(ifelse(temperature == "< 32.00", 32, temperature)),
+    censored = ifelse(temperature == "< 32.00", TRUE, FALSE)
+  )
+```
+
+Create a left-censored Surv object (temp) for `temperature` in Cd:
+```
+temp <- Surv(data_adult_Cd$temperature_numeric,
+                  event = !data_adult_Cd$censored,
+                  type = "left")
+```
+
+Fit Gaussian survival regression models to test the effects of `anaplasma`, `season`, `sex` on `temperature`, with (model_11) and without (model_11b) interactions in Cd:
+```
+model_11 <- survreg(temp ~ anaplasma * season * sex, data = data_adult_Cd, dist = "gaussian")
+model_11a <- survreg(temp ~ anaplasma + season + sex, data = data_adult_Cd, dist = "gaussian")
+```
+
+Compare models using ANOVA and AIC to evaluate the contribution of interaction terms:
+```
+anova(model_11a, model_11, test = "Chisq")
+AIC(model_11a, model_11)
+```
+
+Results are:
+```
+> anova(model_11a, model_11, test = "Chisq")
+                     Terms Resid. Df    -2*LL Test Df  Deviance  Pr(>Chi)
+1 anaplasma + season + sex        14 58.14144      NA        NA        NA
+2 anaplasma * season * sex        10 57.99179    =  4 0.1496427 0.9973367
+
+> AIC(model_11a, model_11)
+          df      AIC
+model_11a  5 68.14144
+model_11   9 75.99179
+```
+
+Perform drop-one-term analysis on the additive model:
+```
+res <- drop1(model_11a, test = "Chisq")
+```
+
+Results are:
+```
+Single term deletions
+Model:
+temp ~ anaplasma + season + sex
+          Df    AIC    LRT Pr(>Chi)
+<none>       68.141                
+anaplasma  1 66.461 0.3192   0.5721
+season     1 66.368 0.2265   0.6341
+sex        1 66.246 0.1050   0.7459
+```
+
+Calculate delta AIC for each term to assess its contribution to model fit:
+```
+aic_full <- AIC(model_11a)
+res$delta_AIC <- res$AIC - aic_full
+print(res[, c("AIC", "delta_AIC")])
+```
+
+Results are:
+```
+             AIC delta_AIC
+<none>    68.141    0.0000
+anaplasma 66.461   -1.6808
+season    66.368   -1.7735
+sex       66.246   -1.8950
+```
+
+Fit a linear model to test the null hypothesis (temp ~ 1) in adult Cd, assessing model fit
+model_11b <- survreg(temp ~ 1, data = data_adult_Cd, dist = "gaussian")
+anova(model_11b, model_11, test = "Chisq")
+AIC(model_11b, model_11)
+```
+
+Results are:
+```
+> anova(model_11b, model_11, test = "Chisq")
+                     Terms Resid. Df    -2*LL Test Df  Deviance  Pr(>Chi)
+1                        1        17 58.73649      NA        NA        NA
+2 anaplasma * season * sex        10 57.99179    =  7 0.7446992 0.9979682
+
+> AIC(model_11b, model_11)
+          df      AIC
+model_11b  2 62.73649
+model_11   9 75.99179
+```
+
+Generate a QQ-plot of deviance residuals from model_10b to visually assess normality:
+```
+resid_temp <- residuals(model_11b, type = "deviance")
+qqnorm(resid_temp)
+qqline(resid_temp, col = "red", lwd = 1)
