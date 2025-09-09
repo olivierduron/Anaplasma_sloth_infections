@@ -381,9 +381,7 @@ data_adult_Bt <- subset(data_Bt, age == "A")
 sma_model_Bt <- sma(log(weight) ~ log(total_length), data = data_adult_Bt)
 sma_model_Bt
 b <- coef(sma_model_Bt)[2]
-b
 L0 <- mean(data_adult_Bt$total_length, na.rm = TRUE)
-L0
 data_adult_Bt$SMI <- data_adult_Bt$weight * (L0 / data_adult_Bt$total_length)^b
 ```
 
@@ -615,4 +613,220 @@ ggplot() +
     axis.text = element_text(size = 14)
   )
 ```
+
+Function to calculate SMI for adult Cd:
+```
+data_adult_Cd <- subset(data_Cd, age == "A")
+sma_model_Cd <- sma(log(weight) ~ log(total_length), data = data_adult_Cd)
+b <- coef(sma_model_Cd)[2]
+L0 <- mean(data_adult_Cd$total_length, na.rm = TRUE)
+data_adult_Cd$SMI <- data_adult_Cd$weight * (L0 / data_adult_Cd$total_length)^b
+```
+
+Fit a GLM to test whether SMI is influenced by interactions among `anaplasma`, `sex`, and `season` in Cd:
+```
+model_4 <- glm(SMI ~ anaplasma * season * sex, data = data_adult_Cd, family = gaussian(link = "identity"))
+```
+
+Fit a GLM to test whether SMI is influenced by additive effects of `anaplasma`, `sex`, and `season` in Cd:
+```
+model_4a <- glm(SMI ~ anaplasma + season + sex, data = data_adult_Cd, family = gaussian(link = "identity"))
+```
+
+Compare the additive model (model_4a) to the interaction model (model_4) using a likelihood ratio test:
+```
+anova(model_4a, model_4, test = "Chisq")
+```
+
+Results are:
+```
+Analysis of Deviance Table
+Model 1: SMI ~ anaplasma + season + sex
+Model 2: SMI ~ anaplasma * season * sex
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        53     29.714                     
+2        49     28.308  4   1.4066   0.6564
+```
+
+Compute AIC for both models to evaluate model fit:
+```
+AIC(model_4, model_4a)
+```
+
+Results are:
+```
+         df      AIC
+model_4   9 139.8637
+model_4a  5 134.6278
+```
+
+Perform drop-one-term analysis on the additive model:
+```
+res <- drop1(model_4a, test = "Chisq")
+res
+```
+
+Results are:
+```
+Single term deletions
+Model: SMI ~ anaplasma + season + sex
+          Df Deviance    AIC scaled dev. Pr(>Chi)
+<none>         29.714 134.63                     
+anaplasma  1   30.415 133.96     1.32866   0.2490
+season     1   29.998 133.17     0.54260   0.4614
+sex        1   29.737 132.67     0.04287   0.8360 
+```
+
+Calculate delta AIC for each term to assess its contribution to model fit:
+```
+aic_full <- AIC(model_4a)
+res$delta_AIC <- res$AIC - aic_full
+print(res[, c("AIC", "delta_AIC")])
+```
+
+Results are:
+```
+             AIC delta_AIC
+<none>    134.63   0.00000
+anaplasma 133.96  -0.67134
+season    133.17  -1.45740
+sex       132.67  -1.95713
+```
+
+Fit a linear model to test the null hypothesis (SMI ~ 1) in adult Bt, assessing model fit and checking residual normality:
+```
+model_4b <- glm(SMI ~ 1, data = data_adult_Cd, family = gaussian(link = "identity"))
+anova(model_4b, model_4, test = "Chisq")
+AIC(model_4b, model_4)
+shapiro.test(model_4b$residuals)
+```
+
+Results are:
+```
+> anova(model_4b, model_4, test = "Chisq")
+Analysis of Deviance Table
+Model 1: SMI ~ 1
+Model 2: SMI ~ anaplasma * season * sex
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        56     30.572                     
+2        49     28.308  7    2.264   0.7891
+
+> AIC(model_4b, model_4)
+         df      AIC
+model_4b  2 130.2494
+model_4   9 139.8637
+
+> shapiro.test(model_4b$residuals)
+Shapiro-Wilk normality test
+data:  model_4b$residuals
+W = 0.97913, p-value = 0.4275
+```
+
+Post hoc power analyses for SMI tests in Cd:
+```
+n <- nrow(na.omit(data_adult_Cd[, c("SMI", "anaplasma", "season", "sex")]))
+k <- 7
+pwr.f2.test(u = k, v = n - k - 1, f2 = 0.30, sig.level = 0.05)
+pwr.f2.test(u = k, v = n - k - 1, f2 = 0.20, sig.level = 0.05)
+```
+
+Results are:
+```
+Multiple regression power calculation (f2 = 0.30)
+u = 7
+v = 49
+f2 = 0.3
+sig.level = 0.05
+power = 0.8166297
+and
+Multiple regression power calculation (f2 = 0.20)
+u = 7
+v = 49
+f2 = 0.2
+sig.level = 0.05
+power = 0.6102676
+```
+
+Generate SMI chart for Cd:
+```
+clean_data <- data_adult_Cd %>%
+  filter(
+    !is.na(weight), !is.na(total_length), !is.na(SMI),
+    is.finite(weight), is.finite(total_length), is.finite(SMI)
+  ) %>%
+  mutate(
+    sex_infect = case_when(
+      sex == "M" & anaplasma == 0 ~ "Male, uninfected",
+      sex == "M" & anaplasma == 1 ~ "Male, infected",
+      sex == "F" & anaplasma == 0 ~ "Female, uninfected",
+      sex == "F" & anaplasma == 1 ~ "Female, infected",
+      TRUE ~ NA_character_
+    )
+  )
+levels_order <- c("Male, uninfected", "Male, infected", "Female, uninfected", "Female, infected")
+clean_data <- clean_data %>%
+  mutate(
+    sex_infect = factor(sex_infect, levels = levels_order),
+    point_size = case_when(
+      sex_infect %in% c("Male, uninfected", "Male, infected") ~ 3.25,
+      TRUE ~ 4  # taille normale pour les cercles
+    )
+  )
+interp_data <- with(clean_data, akima::interp(
+  x = weight,
+  y = total_length,
+  z = SMI,
+  duplicate = "mean",
+  extrap = FALSE
+))
+interp_df <- expand.grid(
+  x = interp_data$x,
+  y = interp_data$y
+)
+interp_df$z <- as.vector(interp_data$z)
+legend_point_sizes <- c(3.25, 3.25, 4, 4) / 2
+ggplot() +
+  geom_contour_filled(data = interp_df, aes(x = x, y = y, z = z)) +
+  geom_point(
+    data = clean_data,
+    aes(
+      x = weight,
+      y = total_length,
+      shape = sex_infect,
+      size = point_size
+    ),
+    color = "black",
+    stroke = 1
+  ) +
+  scale_fill_brewer(palette = "YlOrBr", name = "SMI level") +
+  scale_shape_manual(
+    name = expression(paste(italic("Anaplasma"), " infection status")),
+    values = c(
+      "Male, uninfected" = 0,
+      "Male, infected" = 12,
+      "Female, uninfected" = 1,
+      "Female, infected" = 10
+    )
+  ) +
+  scale_size_identity(guide = "none") + 
+  guides(
+    shape = guide_legend(override.aes = list(size = legend_point_sizes))
+  ) +
+  labs(
+    x = "Body mass (kg)",
+    y = "Total Length (cm)",
+    title = expression(paste("Scale Mass Index (SMI) of ", italic("Choloepus didactylus")))
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    legend.position = "right",
+    panel.border = element_rect(color = "black", fill = NA, size = 1),
+    panel.background = element_blank(),
+    axis.title = element_text(size = 16),
+    axis.text = element_text(size = 14)
+  )
+```
+
+## Step 8. Impact of _Anaplasma_ infections on xxx
+The xxx
 
