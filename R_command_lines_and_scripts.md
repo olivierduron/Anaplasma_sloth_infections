@@ -1519,7 +1519,7 @@ qqnorm(resid_temp)
 qqline(resid_temp, col = "red", lwd = 1)
 ```
 
-![QQ-plot of residuals](figures/qqplot_residuals.png)
+![QQ-plot of residuals](qqplot_residuals.png)
 
 
 
