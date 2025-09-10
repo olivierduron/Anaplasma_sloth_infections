@@ -1518,8 +1518,6 @@ resid_temp <- residuals(model_10b, type = "deviance")
 qqnorm(resid_temp)
 qqline(resid_temp, col = "red", lwd = 1)
 ```
-
-Results are:
 ![QQ-plot of residuals model_10b](qqplot_residuals_model_10b.png)
 
 Convert `temperature` to numeric, handle left-censored values (<32°C) for sanalysis in Cd:
@@ -1622,6 +1620,7 @@ resid_temp <- residuals(model_11b, type = "deviance")
 qqnorm(resid_temp)
 qqline(resid_temp, col = "red", lwd = 1)
 ```
+![QQ-plot of residuals model_11b](qqplot_residuals_model_11b.png)
 
 ## Step 11. Impact of _Anaplasma_ infections on general health condition 
 Test the association between `anaplasma` and `health_condition` in Bt:
