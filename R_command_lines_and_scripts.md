@@ -1361,55 +1361,86 @@ plot(model_9b)
 
 Create Figure 4 (violin plots for `hematocrit`)
 ```
-label_style <- element_text(size = 14, face = "bold")
-pA <- ggplot(data_adult_Bt, aes(x = factor(anaplasma, levels = c(0, 1), labels = c("Uninfected", "Infected")),
+label_style <- element_text(size = 28, face = "bold")  # doublé
+
+pA <- ggplot(data_adult_Bt, aes(x = factor(anaplasma, levels = c(0, 1),
+                                labels = c("Uninfected", "Infected")),
                                 y = hematocrit)) +
-  geom_violin(fill = "lightblue", color = "black", alpha = 0.7, trim = FALSE) +
+  geom_violin(fill = "darkolivegreen3", color = "black", alpha = 0.7, trim = FALSE) +
   geom_boxplot(width = 0.1, fill = "white", outlier.shape = NA, color = "black") +
   geom_jitter(width = 0.15, size = 1.5, alpha = 0.5) +
-  labs(x = "Anaplasma Infection Status",
-       y = "Hematocrit (%)",
+  labs(x = NULL,  # retirer légende axe x
+       y = "Hematocrit (%)",   # correction demandée
        title = "A") +
+  scale_y_continuous(limits = c(20, 60)) +
+  scale_x_discrete(labels = NULL) +  # enlever Uninfected / Infected
   theme_minimal() +
   theme(plot.title = label_style)
-pB <- ggplot(data_adult_Bt, aes(x = factor(season, levels = c("D", "W"), labels = c("Dry", "Wet")),
+
+pB <- ggplot(data_adult_Bt, aes(x = factor(season, levels = c("D", "W"),
+                                labels = c("Dry", "Wet")),
                                 y = hematocrit)) +
-  geom_violin(fill = "lightblue", color = "black", alpha = 0.7, trim = FALSE) +
+  geom_violin(fill = "darkolivegreen3", color = "black", alpha = 0.7, trim = FALSE) +
   geom_boxplot(width = 0.1, fill = "white", outlier.shape = NA, color = "black") +
   geom_jitter(width = 0.15, size = 1.5, alpha = 0.5) +
-  labs(x = "Season", y = "Hematocrit (%)", title = "B") +
+  labs(x = NULL,
+       y = NULL,
+       title = "B") +
+  scale_y_continuous(limits = c(20, 60)) +
+  scale_x_discrete(labels = NULL) +  # enlever Dry / Wet
   theme_minimal() +
   theme(plot.title = label_style)
-pC <- ggplot(data_adult_Bt, aes(x = factor(sex, levels = c("M", "F"), labels = c("Male", "Female")),
+
+pC <- ggplot(data_adult_Bt, aes(x = factor(sex, levels = c("M", "F"),
+                                labels = c("Male", "Female")),
                                 y = hematocrit)) +
-  geom_violin(fill = "lightblue", color = "black", alpha = 0.7, trim = FALSE) +
+  geom_violin(fill = "darkolivegreen3", color = "black", alpha = 0.7, trim = FALSE) +
   geom_boxplot(width = 0.1, fill = "white", outlier.shape = NA, color = "black") +
   geom_jitter(width = 0.15, size = 1.5, alpha = 0.5) +
-  labs(x = "Sex", y = "Hematocrit (%)", title = "C") +
+  labs(x = NULL,
+       y = NULL,
+       title = "C") +
+  scale_y_continuous(limits = c(20, 60)) +
+  scale_x_discrete(labels = NULL) +  # enlever Male / Female
   theme_minimal() +
   theme(plot.title = label_style)
-pD <- ggplot(data_adult_Cd, aes(x = factor(anaplasma, levels = c(0, 1), labels = c("Uninfected", "Infected")),
+
+pD <- ggplot(data_adult_Cd, aes(x = factor(anaplasma, levels = c(0, 1),
+                                labels = c("Uninfected", "Infected")),
                                 y = hematocrit)) +
-  geom_violin(fill = "lightblue", color = "black", alpha = 0.7, trim = FALSE) +
+  geom_violin(fill = "goldenrod1", color = "black", alpha = 0.7, trim = FALSE) +
   geom_boxplot(width = 0.1, fill = "white", outlier.shape = NA, color = "black") +
   geom_jitter(width = 0.15, size = 1.5, alpha = 0.5) +
-  labs(x = "Anaplasma Infection Status", y = "Hematocrit (%)", title = "D") +
+  labs(x = expression(paste(italic("Anaplasma"), " infection status")),
+       y = "Hematocrit (%)",
+       title = "D") +
+  scale_y_continuous(limits = c(10, 60)) +
   theme_minimal() +
   theme(plot.title = label_style)
-pE <- ggplot(data_adult_Cd, aes(x = factor(season, levels = c("D", "W"), labels = c("Dry", "Wet")),
+
+pE <- ggplot(data_adult_Cd, aes(x = factor(season, levels = c("D", "W"),
+                                labels = c("Dry", "Wet")),
                                 y = hematocrit)) +
-  geom_violin(fill = "lightblue", color = "black", alpha = 0.7, trim = FALSE) +
+  geom_violin(fill = "goldenrod1", color = "black", alpha = 0.7, trim = FALSE) +
   geom_boxplot(width = 0.1, fill = "white", outlier.shape = NA, color = "black") +
   geom_jitter(width = 0.15, size = 1.5, alpha = 0.5) +
-  labs(x = "Season", y = "Hematocrit (%)", title = "E") +
+  labs(x = "Season",
+       y = NULL,
+       title = "E") +
+  scale_y_continuous(limits = c(10, 60)) +
   theme_minimal() +
   theme(plot.title = label_style)
-pF <- ggplot(data_adult_Cd, aes(x = factor(sex, levels = c("M", "F"), labels = c("Male", "Female")),
+
+pF <- ggplot(data_adult_Cd, aes(x = factor(sex, levels = c("M", "F"),
+                                labels = c("Male", "Female")),
                                 y = hematocrit)) +
-  geom_violin(fill = "lightblue", color = "black", alpha = 0.7, trim = FALSE) +
+  geom_violin(fill = "goldenrod1", color = "black", alpha = 0.7, trim = FALSE) +
   geom_boxplot(width = 0.1, fill = "white", outlier.shape = NA, color = "black") +
   geom_jitter(width = 0.15, size = 1.5, alpha = 0.5) +
-  labs(x = "Sex", y = "Hematocrit (%)", title = "F") +
+  labs(x = "Sex",
+       y = NULL,
+       title = "F") +
+  scale_y_continuous(limits = c(10, 60)) +
   theme_minimal() +
   theme(plot.title = label_style)
 final_plot <- (pA | pB | pC) / (pD | pE | pF)
