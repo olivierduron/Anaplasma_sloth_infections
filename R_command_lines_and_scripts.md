@@ -1519,9 +1519,8 @@ qqnorm(resid_temp)
 qqline(resid_temp, col = "red", lwd = 1)
 ```
 
-![QQ-plot of residuals](qqplot_residuals.png)
-
-
+Results are:
+![QQ-plot of residuals model_10b](qqplot_residuals_model_10b.png)
 
 Convert `temperature` to numeric, handle left-censored values (<32°C) for sanalysis in Cd:
 ```
