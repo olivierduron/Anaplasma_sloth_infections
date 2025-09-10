@@ -1,3 +1,1 @@
-git add figures/qqplot_residuals.png
-git commit -m "add QQ-plot of residuals"
-git push
+
