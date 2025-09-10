@@ -1693,6 +1693,7 @@ Fisher's Exact Test for Count Data
 data:  table_anaplasma_infection_female_Bt
 p-value = 0.1697
 alternative hypothesis: two.sided
+```
 
 Test the association between `anaplasma` and `female_reproductive_status` in Cd:
 ```
