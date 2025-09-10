@@ -488,7 +488,7 @@ data:  model_3b
 BP = 2.7945, df = 1, p-value = 0.09459
 ```
 
-Calculation of mean and standard error of `SMI` by `sex` for Bt:
+Calculation of mean and standard error of SMI by `sex` for Bt:
 ```
 data_adult_Bt %>%
   group_by(sex) %>%
@@ -1621,11 +1621,96 @@ qqline(resid_temp, col = "red", lwd = 1)
 ```
 
 ## Step 11. Impact of _Anaplasma_ infections on general health condition 
-xxx
+Test the association between `anaplasma` and `health_condition` in Bt:
+```
+table_health_condition_anaplasma_Bt <- table(data_Bt$anaplasma, data_Bt$health_condition)
+table_health_condition_anaplasma_Bt
+fisher.test(table_health_condition_anaplasma_Bt)
+```
+
+Results are:
+```
+> table_health_condition_anaplasma_Bt
+     D  G
+  0  3 31
+  1  7 51
+
+> fisher.test(table_health_condition_anaplasma_Bt)
+Fisher's Exact Test for Count Data
+data:  table_health_condition_anaplasma_Bt
+p-value = 0.7397
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+0.1100479 3.3891841
+sample estimates:
+odds ratio 
+0.7076468 
+```
+
+Test the association between `anaplasma` and `health_condition` in Cd:
+```
+table_health_condition_anaplasma_Cd <- table(data_Cd$anaplasma, data_Cd$health_condition)
+table_health_condition_anaplasma_Cd
+fisher.test(table_health_condition_anaplasma_Cd)
+```
+
+Results are:
+```
+> table_health_condition_anaplasma_Cd
+     D  G
+  0  4 39
+  1  1 39
+
+> fisher.test(table_health_condition_anaplasma_Cd)
+Fisher's Exact Test for Count Data
+data:  table_health_condition_anaplasma_Cd
+p-value = 0.3612
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+0.3682924 201.7304842
+sample estimates:
+odds ratio 
+3.942027 
+```
 
 ## Step 12. Impact of _Anaplasma_ infections on female reproductive status 
-xxx
+Test the association between `anaplasma` and `female_reproductive_status` in Bt:
+```
+table_anaplasma_infection_female_Bt <- table(data_Bt$anaplasma, data_Bt$female_reproductive_status)
+table_anaplasma_infection_female_Bt
+fisher.test(table_anaplasma_infection_female_Bt)
+```
 
+Results are:
+```
+> table_anaplasma_infection_female_Bt
+    Female lactating with a young Female non pregnant non lactating Pregnant female
+  0                             1                                15               3
+  1                             7                                14               3
 
+> fisher.test(table_anaplasma_infection_female_Bt)
+Fisher's Exact Test for Count Data
+data:  table_anaplasma_infection_female_Bt
+p-value = 0.1697
+alternative hypothesis: two.sided
 
+Test the association between `anaplasma` and `female_reproductive_status` in Cd:
+```
+table_anaplasma_infection_female_Cd <- table(data_Cd$anaplasma, data_Cd$female_reproductive_status)
+table_anaplasma_infection_female_Cd
+fisher.test(table_anaplasma_infection_female_Cd)
+```
 
+Results are:
+```
+> table_anaplasma_infection_female_Cd
+Female lactating with a young Female non pregnant non lactating Pregnant female
+  0                             5                                21               2
+  1                             2                                18               1
+
+> fisher.test(table_anaplasma_infection_female_Cd)
+Fisher's Exact Test for Count Data
+data:  table_anaplasma_infection_female_Cd
+p-value = 0.66
+alternative hypothesis: two.sided
+```
