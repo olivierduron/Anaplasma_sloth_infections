@@ -1614,7 +1614,7 @@ model_11b  2 62.73649
 model_11   9 75.99179
 ```
 
-Generate a QQ-plot of deviance residuals from model_10b to visually assess normality:
+Generate a QQ-plot of deviance residuals from model_11b to visually assess normality:
 ```
 resid_temp <- residuals(model_11b, type = "deviance")
 qqnorm(resid_temp)
