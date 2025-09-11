@@ -23,7 +23,7 @@ Details about all the experimental methods and measures are available in the rel
 
 
 ## Table of contents 
-- [Retrieving the data](## Step 1. Retrieving the data)
+- [Retrieving the data](##-Step-1.-Retrieving-the-data)
 
 
 ## Step 1. Retrieving the data
