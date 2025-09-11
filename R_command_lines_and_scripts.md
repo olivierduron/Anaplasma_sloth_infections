@@ -377,7 +377,6 @@ Function to calculate SMI for adult Bt:
 ```
 data_adult_Bt <- subset(data_Bt, age == "A")
 sma_model_Bt <- sma(log(weight) ~ log(total_length), data = data_adult_Bt)
-sma_model_Bt
 b <- coef(sma_model_Bt)[2]
 L0 <- mean(data_adult_Bt$total_length, na.rm = TRUE)
 data_adult_Bt$SMI <- data_adult_Bt$weight * (L0 / data_adult_Bt$total_length)^b
