@@ -26,7 +26,7 @@ Details about all the experimental methods and measures are available in the rel
 - [Step 1. Retrieving the data](#step-1-retrieving-the-data)
 - [Step 2. Prepare the data for analysis](#step-2-prepare-the-data-for-analysis)
 - [Step 3. Calculate *Anaplasma* infection prevalence](#step-3-calculate-anaplasma-infection-prevalence)
-- [Step 4. Test whether _Anaplasma_ infection prevalence in _Bradypus tridactylus_ (Bt) is influenced by sex, age, season, ticks and blood parasites (GLM model 1)](#step-4-test-whether-anaplasma-infection-prevalence-in-bradypus-tridactylus-(Bt)-is-influenced-by-sex,-age,-season,-ticks-and-blood-parasites-(GLM-model-1))
+- [Step 4. Test whether _Anaplasma_ infection prevalence in _Bradypus tridactylus_ (Bt) is influenced by sex, age, season, ticks and blood parasites (GLM model 1)](#step-4-test-whether-anaplasma-infection-prevalence-in-bradypus-tridactylus-(bt)-is-influenced-by-sex,-age,-season,-ticks-and-blood-parasites-(glm-model-1))
 - [Step 5. Test whether _Anaplasma_ infection prevalence in _Choloepus didactylus_ (Cd) is influenced by sex, age, season, ticks and blood parasites (GLM model 2)](#step-5-test-whether-anaplasma-infection-prevalence-in-choloepus-didactylus-(Cd)-is-influenced-by-sex,-age,-season,-ticks-and-blood-parasites-(GLM-model-2))
 - [Step 6. Test whether the proportion of sloths carrying ticks and blood parasites vary between seasons](#step-6-test-whether-the-proportion-of-sloths-carrying-ticks-and-blood-parasites-vary-between-seasons)
 - [Step 7. Impact of _Anaplasma_ infections on Scale Mass Index (SMI) (GLM models 3 and 4)](#step-7-impact-of-anaplasma-infections-on-scale-mass-index-(smi)-(glm-models-3-and-4))
