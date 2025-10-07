@@ -1906,6 +1906,7 @@ Fit Gaussian survival regression models to test the effects of `anaplasma`, `sea
 ```
 model_10 <- survreg(temp ~ anaplasma * season * sex, data = data_adult_Bt, dist = "gaussian")
 model_10a <- survreg(temp ~ anaplasma + season + sex, data = data_adult_Bt, dist = "gaussian")
+
 ```
 
 Compare models using ANOVA and AIC to evaluate the contribution of interaction terms:
@@ -1959,6 +1960,42 @@ Results are:
 anaplasma 89.482    1.3215
 season    89.054    1.7503
 sex       93.181    2.3768
+```
+
+Compare the null model (model_null) to univariate models using likelihood ratio tests and AIC:
+```
+model10_null <- survreg(temp ~ 1, data = data_adult_Bt, dist = "gaussian")
+model10_anaplasma <- survreg(temp ~ anaplasma, data = data_adult_Bt, dist = "gaussian")
+model10_season <- survreg(temp ~ season, data = data_adult_Bt, dist = "gaussian")
+model10_sex <- survreg(temp ~ sex, data = data_adult_Bt, dist = "gaussian")
+anova(model10_null, model10_anaplasma, test="Chisq")
+anova(model10_null, model10_season, test="Chisq")
+anova(model10_null, model10_sex, test="Chisq")
+aics <- AIC(model10_null, model10_anaplasma, model10_season, model10_sex)
+aic_null <- aics["model10_null", "AIC"]
+aics$delta_AIC_vs_null <- aics$AIC - aic_null
+print(aics[, c("AIC", "delta_AIC_vs_null")])
+```
+
+Results are:
+```
+      Terms Resid. Df    -2*LL Test Df  Deviance  Pr(>Chi)
+1         1        31 85.36015      NA        NA        NA
+2 anaplasma        30 85.19185    =  1 0.1683011 0.6816261
+---
+   Terms Resid. Df    -2*LL Test Df    Deviance  Pr(>Chi)
+1      1        31 85.36015      NA          NA        NA
+2 season        30 85.35333    =  1 0.006827965 0.9341446
+---
+  Terms Resid. Df    -2*LL Test Df Deviance   Pr(>Chi)
+1     1        31 85.36015      NA       NA         NA
+2   sex        30 81.66861    =  1 3.691544 0.05468897
+---
+                       AIC delta_AIC_vs_null
+model10_null      89.36015          0.000000
+model10_anaplasma 91.19185          1.831699
+model10_season    91.35333          1.993172
+model10_sex       87.66861          1.691544
 ```
 
 Fit a linear model to test the model_10b (temp ~ sex) in adult Bt, assessing model fit:
