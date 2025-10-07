@@ -887,10 +887,10 @@ Single term deletions
 Model:
 log(neck_size) ~ anaplasma + season + sex
           Df Deviance     AIC scaled dev. Pr(>Chi)  
-<none>        0.49104 -111.04                       
-anaplasma  1  0.49589 -112.44     0.59895  0.43898  
-season     1  0.49389 -112.69     0.35268  0.55260  
-sex        1  0.51549 -110.07     2.96411  0.08513
+<none>        0.49104  111.04                       
+anaplasma  1  0.49589  112.44     0.59895  0.43898  
+season     1  0.49389  112.69     0.35268  0.55260  
+sex        1  0.51549  110.07     2.96411  0.08513
 ```
 
 Calculate delta AIC for each term to assess its contribution to model fit:
@@ -986,10 +986,10 @@ Single term deletions
 Model:
 log(neck_size) ~ anaplasma + season + sex
           Df Deviance     AIC scaled dev. Pr(>Chi)
-<none>        0.56030 -67.405                     
-anaplasma  1  0.56124 -69.324     0.08052   0.7766
-season     1  0.58022 -67.728     1.67690   0.1953
-sex        1  0.57931 -67.804     1.60083   0.2058
+<none>        0.56030  67.405                     
+anaplasma  1  0.56124  69.324     0.08052   0.7766
+season     1  0.58022  67.728     1.67690   0.1953
+sex        1  0.57931  67.804     1.60083   0.2058
 ```
 
 Calculate delta AIC for each term to assess its contribution to model fit:
