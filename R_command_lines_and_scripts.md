@@ -620,6 +620,51 @@ season    148.64    1.9230
 sex       161.06   10.4943
 ```
 
+Compare the null model (model_null) to univariate models using likelihood ratio tests and AIC:
+```
+model3_null <- glm(SMI ~ 1, data = data_adult_Bt, family = gaussian(link = "identity"))
+model3_anaplasma <- glm(SMI ~ anaplasma, data = data_adult_Bt, family = gaussian(link = "identity"))
+model3_season <- glm(SMI ~ season, data = data_adult_Bt, family = gaussian(link = "identity"))
+model3_sex <- glm(SMI ~ sex, data = data_adult_Bt, family = gaussian(link = "identity"))
+anova(model3_null, model3_anaplasma, test="Chisq")
+anova(model3_null, model3_season, test="Chisq")
+anova(model3_null, model3_sex, test="Chisq")
+aics <- AIC(model3_null, model3_anaplasma, model3_season, model3_sex)
+aic_null <- aics["model3_null", "AIC"]
+aics$delta_AIC_vs_null <- aics$AIC - aic_null
+print(aics[, c("AIC", "delta_AIC_vs_null")])
+```
+
+Results are:
+```
+Analysis of Deviance Table
+Model 1: SMI ~ 1
+Model 2: SMI ~ anaplasma
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        82     30.838                     
+2        81     30.730  1  0.10766   0.5942
+---
+Analysis of Deviance Table
+Model 1: SMI ~ 1
+Model 2: SMI ~ season
+  Resid. Df Resid. Dev Df  Deviance Pr(>Chi)
+1        82     30.838                      
+2        81     30.829  1 0.0087678   0.8794
+---
+Analysis of Deviance Table
+Model 1: SMI ~ 1
+Model 2: SMI ~ sex
+  Resid. Df Resid. Dev Df Deviance  Pr(>Chi)    
+1        82     30.838                          
+2        81     26.881  1   3.9571 0.0005542 ***
+---
+                      AIC delta_AIC_vs_null
+model3_null      157.3666          0.000000
+model3_anaplasma 159.0763          1.709727
+model3_season    159.3430          1.976398
+model3_sex       147.9681          9.398467
+```
+
 Fit a linear model to test the effect of `sex` on SMI in adult Bt and assess model fit, residual normality, and heteroscedasticity:
 ```
 model_3b <- glm(SMI ~ sex, data = data_adult_Bt, family = gaussian(link = "identity"))
