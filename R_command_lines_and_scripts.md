@@ -1998,34 +1998,6 @@ model10_season    91.35333          1.993172
 model10_sex       87.66861          1.691544
 ```
 
-Fit a linear model to test the model_10b (temp ~ sex) in adult Bt, assessing model fit:
-```
-model_10b <- survreg(temp ~ sex, data = data_adult_Bt, dist = "gaussian")
-anova(model_10b, model_10, test = "Chisq")
-AIC(model_10b, model_10)
-```
-
-Results are:
-```
-> anova(model_10b, model_10, test = "Chisq")
-                     Terms Resid. Df    -2*LL Test Df Deviance  Pr(>Chi)
-1                      sex        30 81.66861      NA       NA        NA
-2 anaplasma * season * sex        24 79.63689    =  6 2.031716 0.9167586
-
-> AIC(model_10b, model_10)
-          df      AIC
-model_10b  3 87.66861
-model_10   9 97.63689
-```
-
-Generate a QQ-plot of deviance residuals from model_10b to visually assess normality:
-```
-resid_temp <- residuals(model_10b, type = "deviance")
-qqnorm(resid_temp)
-qqline(resid_temp, col = "red", lwd = 1)
-```
-![QQ-plot of residuals model_10b](qqplot_residuals_model_10b.png)
-
 Convert `temperature` to numeric, handle left-censored values (<32°C) for sanalysis in Cd:
 ```
 data_adult_Cd <- data_adult_Cd %>%
@@ -2100,33 +2072,49 @@ season    66.368    1.7735
 sex       66.246    1.8950
 ```
 
-Fit a linear model to test the null hypothesis (temp ~ 1) in adult Cd, assessing model fit:
+Compare the null model (model_null) to univariate models using likelihood ratio tests and AIC:
 ```
-model_11b <- survreg(temp ~ 1, data = data_adult_Cd, dist = "gaussian")
-anova(model_11b, model_11, test = "Chisq")
-AIC(model_11b, model_11)
+model11_null <- survreg(temp ~ 1, data = data_adult_Cd, dist = "gaussian")
+model11_anaplasma <- survreg(temp ~ anaplasma, data = data_adult_Cd, dist = "gaussian")
+model11_season <- survreg(temp ~ season, data = data_adult_Cd, dist = "gaussian")
+model11_sex <- survreg(temp ~ sex, data = data_adult_Cd, dist = "gaussian")
+anova(model11_null, model11_anaplasma, test="Chisq")
+anova(model11_null, model11_season, test="Chisq")
+anova(model11_null, model11_sex, test="Chisq")
+aics <- AIC(model11_null, model11_anaplasma, model11_season, model11_sex)
+aic_null <- aics["model11_null", "AIC"]
+aics$delta_AIC_vs_null <- aics$AIC - aic_null
+print(aics[, c("AIC", "delta_AIC_vs_null")])
 ```
 
 Results are:
 ```
-> anova(model_11b, model_11, test = "Chisq")
-                     Terms Resid. Df    -2*LL Test Df  Deviance  Pr(>Chi)
-1                        1        17 58.73649      NA        NA        NA
-2 anaplasma * season * sex        10 57.99179    =  7 0.7446992 0.9979682
-
-> AIC(model_11b, model_11)
-          df      AIC
-model_11b  2 62.73649
-model_11   9 75.99179
+      Terms Resid. Df    -2*LL Test Df  Deviance  Pr(>Chi)
+1         1        17 58.73649      NA        NA        NA
+2 anaplasma        16 58.43345    =  1 0.3030379 0.5819842
+---
+   Terms Resid. Df    -2*LL Test Df   Deviance  Pr(>Chi)
+1      1        17 58.73649      NA         NA        NA
+2 season        16 58.64685    =  1 0.08964222 0.7646325
+---
+  Terms Resid. Df    -2*LL Test Df  Deviance  Pr(>Chi)
+1     1        17 58.73649      NA        NA        NA
+2   sex        16 58.60173    =  1 0.1347589 0.7135479
+---
+                       AIC delta_AIC_vs_null
+model11_null      62.73649          0.000000
+model11_anaplasma 64.43345          1.696962
+model11_season    64.64685          1.910358
+model11_sex       64.60173          1.865241
 ```
 
-Generate a QQ-plot of deviance residuals from model_11b to visually assess normality:
+Generate a QQ-plot of deviance residuals from model11_null to visually assess normality:
 ```
-resid_temp <- residuals(model_11b, type = "deviance")
+resid_temp <- residuals(model11_null, type = "deviance")
 qqnorm(resid_temp)
 qqline(resid_temp, col = "red", lwd = 1)
 ```
-![QQ-plot of residuals model_11b](qqplot_residuals_model_11b.png)
+![QQ-plot of residuals model11_null](qqplot_residuals_model_11b.png)
 
 ## Step 11. Impact of _Anaplasma_ infections on general health condition 
 Test the association between `anaplasma` and `health_condition` in Bt:
