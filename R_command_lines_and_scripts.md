@@ -1297,6 +1297,51 @@ season     67.728   0.32310
 sex        67.804   0.39917
 ```
 
+Compare the null model (model_null) to univariate models using likelihood ratio tests and AIC:
+```
+model6_null <- glm(log(neck_size) ~ 1, data = data_adult_Cd, family = gaussian(link = "identity"))
+model6_anaplasma <- glm(log(neck_size) ~ anaplasma, data = data_adult_Cd, family = gaussian(link = "identity"))
+model6_season <- glm(log(neck_size) ~ season, data = data_adult_Cd, family = gaussian(link = "identity"))
+model6_sex <- glm(log(neck_size) ~ sex, data = data_adult_Cd, family = gaussian(link = "identity"))
+anova(model6_null, model6_anaplasma, test="Chisq")
+anova(model6_null, model6_season, test="Chisq")
+anova(model6_null, model6_sex, test="Chisq")
+aics <- AIC(model6_null, model6_anaplasma, model6_season, model6_sex)
+aic_null <- aics["model6_null", "AIC"]
+aics$delta_AIC_vs_null <- aics$AIC - aic_null
+print(aics[, c("AIC", "delta_AIC_vs_null")])
+```
+
+Results are:
+```
+Analysis of Deviance Table
+Model 1: log(neck_size) ~ 1
+Model 2: log(neck_size) ~ anaplasma
+  Resid. Df Resid. Dev Df  Deviance Pr(>Chi)
+1        47    0.60752                      
+2        46    0.60490  1 0.0026148   0.6557
+---
+Analysis of Deviance Table
+Model 1: log(neck_size) ~ 1
+Model 2: log(neck_size) ~ season
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        47    0.60752                     
+2        46    0.58020  1 0.027321   0.1411
+---
+Analysis of Deviance Table
+Model 1: log(neck_size) ~ 1
+Model 2: log(neck_size) ~ sex
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        47    0.60752                     
+2        46    0.58267  1 0.024851   0.1613
+---
+                       AIC delta_AIC_vs_null
+model6_null       69.52144       0.000000000
+model6_anaplasma  67.72848       1.792960785
+model6_season     69.73015       0.208715492
+model6_sex        69.52621       0.004777113
+```
+
 Fit a linear model to test the null hypothesis (`neck_size` ~ 1) in adult Cd, assessing model fit and checking residual normality:
 ```
 model_6b <- glm(log(neck_size) ~ 1, data = data_adult_Cd, family = gaussian(link = "identity"))
