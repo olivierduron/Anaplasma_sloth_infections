@@ -188,6 +188,71 @@ tick          127.56   1.17641
 bloodparasite 126.74   1.99463
 ```
 
+Compare the null model (model_null) to univariate models using likelihood ratio tests and AIC:
+```
+model_null <- glm(anaplasma ~ 1, data = data_Bt, family = binomial)
+model_sex <- glm(anaplasma ~ sex, data = data_Bt, family = binomial)
+model_age <- glm(anaplasma ~ age, data = data_Bt, family = binomial)
+model_season <- glm(anaplasma ~ season, data = data_Bt, family = binomial)
+model_tick <- glm(anaplasma ~ tick, data = data_Bt, family = binomial)
+model_bloodparasite <- glm(anaplasma ~ bloodparasite, data = data_Bt, family = binomial)
+anova(model_null, model_sex, test="Chisq")
+anova(model_null, model_age, test="Chisq")
+anova(model_null, model_season, test="Chisq")
+anova(model_null, model_tick, test="Chisq")
+anova(model_null, model_bloodparasite, test="Chisq")
+aics <- AIC(model_null, model_sex, model_age, model_season, model_tick, model_bloodparasite)
+aic_null <- aics["model_null", "AIC"]
+aics$delta_AIC_vs_null <- aics$AIC - aic_null
+print(aics[, c("AIC", "delta_AIC_vs_null")])
+```
+
+Results are:
+```
+Analysis of Deviance Table
+Model 1: anaplasma ~ 1
+Model 2: anaplasma ~ sex
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        91     121.20                     
+2        90     119.39  1   1.8129   0.1782
+---
+Analysis of Deviance Table
+Model 1: anaplasma ~ 1
+Model 2: anaplasma ~ age
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        91     121.20                     
+2        90     120.05  1   1.1537   0.2828
+---
+Analysis of Deviance Table
+Model 1: anaplasma ~ 1
+Model 2: anaplasma ~ season
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        91      121.2                     
+2        90      120.8  1  0.41002    0.522
+---
+Analysis of Deviance Table
+Model 1: anaplasma ~ 1
+Model 2: anaplasma ~ tick
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        91     121.20                     
+2        90     120.67  1  0.53727   0.4636
+---
+Analysis of Deviance Table
+Model 1: anaplasma ~ 1
+Model 2: anaplasma ~ bloodparasite
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        91     121.20                     
+2        90     121.17  1 0.037782   0.8459
+---
+                         AIC delta_AIC_vs_null
+model_null          123.2052         0.0000000
+model_sex           123.3923         0.1871191
+model_age           124.0515         0.8463400
+model_season        124.7952         1.5899764
+model_tick          124.6679         1.4627279
+model_bloodparasite 125.1674         1.9622180
+```
+
 Tests for associations between `anaplasma` and the presence of blood parasites (`microfilaria`, `trypanosome`, `babesia`) considered separately in Bt:
 ```
 fisher.test(table(data_Bt$anaplasma, data_Bt$microfilaria))  
