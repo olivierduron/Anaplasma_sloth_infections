@@ -1745,6 +1745,52 @@ model_9b  3 337.7635
 model_9   9 345.0484
 ```
 
+Compare the null model (model_null) to univariate models using likelihood ratio tests and AIC:
+```
+model9_null <- glm(hematocrit ~ 1, data = data_adult_Cd, family = Gamma(link = "log"), subset = hematocrit >= 30)
+model9_anaplasma <- glm(hematocrit ~ anaplasma, data = data_adult_Cd, family = Gamma(link = "log"), subset = hematocrit >= 30)
+model9_season <- glm(hematocrit ~ season, data = data_adult_Cd, family = Gamma(link = "log"), subset = hematocrit >= 30)
+model9_sex <- glm(hematocrit ~ sex, data = data_adult_Cd, family = Gamma(link = "log"), subset = hematocrit >= 30)
+anova(model9_null, model9_anaplasma, test="Chisq")
+anova(model9_null, model9_season, test="Chisq")
+anova(model9_null, model9_sex, test="Chisq")
+aics <- AIC(model9_null, model9_anaplasma, model9_season, model9_sex)
+aic_null <- aics["model9_null", "AIC"]
+aics$delta_AIC_vs_null <- aics$AIC - aic_null
+print(aics[, c("AIC", "delta_AIC_vs_null")])
+```
+
+Results are:
+```
+Analysis of Deviance Table
+Model 1: hematocrit ~ 1
+Model 2: hematocrit ~ anaplasma
+  Resid. Df Resid. Dev Df  Deviance Pr(>Chi)
+1        57    0.73373                      
+2        56    0.72787  1 0.0058539   0.5033
+---
+Analysis of Deviance Table
+Model 1: hematocrit ~ 1
+Model 2: hematocrit ~ season
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)  
+1        57    0.73373                       
+2        56    0.67789  1 0.055834  0.03221 *
+---
+Analysis of Deviance Table
+Model 1: hematocrit ~ 1
+Model 2: hematocrit ~ sex
+  Resid. Df Resid. Dev Df  Deviance Pr(>Chi)
+1        57    0.73373                      
+2        56    0.73160  1 0.0021244   0.6867
+---
+                      AIC delta_AIC_vs_null
+model9_null      340.3634          0.000000
+model9_anaplasma 341.8978          1.534422
+model9_season    337.7635         2.599874
+model9_sex       342.1949          1.831468
+```
+
+
 Generate diagnostic plots for model_8b to assess model fit and identify potential outliers:
 ```
 par(mfrow = c(2,2))
