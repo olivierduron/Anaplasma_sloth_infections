@@ -901,6 +901,29 @@ season    133.17   1.45740
 sex       132.67   1.95713
 ```
 
+Compare the null model (model_null) to univariate models using likelihood ratio tests and AIC:
+```
+model4_null <- glm(SMI ~ 1, data = data_adult_Cd, family = gaussian(link = "identity"))
+model4_anaplasma <- glm(SMI ~ anaplasma, data = data_adult_Cd, family = gaussian(link = "identity"))
+model4_season <- glm(SMI ~ season, data = data_adult_Cd, family = gaussian(link = "identity"))
+model4_sex <- glm(SMI ~ sex, data = data_adult_Cd, family = gaussian(link = "identity"))
+anova(model4_null, model4_anaplasma, test="Chisq")
+anova(model4_null, model4_season, test="Chisq")
+anova(model4_null, model4_sex, test="Chisq")
+aics <- AIC(model4_null, model4_anaplasma, model4_season, model4_sex)
+aic_null <- aics["model4_null", "AIC"]
+aics$delta_AIC_vs_null <- aics$AIC - aic_null
+print(aics[, c("AIC", "delta_AIC_vs_null")])
+```
+
+Results are:
+```
+
+
+
+
+
+
 Fit a linear model to test the null hypothesis (SMI ~ 1) in adult Bt, assessing model fit and checking residual normality:
 ```
 model_4b <- glm(SMI ~ 1, data = data_adult_Cd, family = gaussian(link = "identity"))
