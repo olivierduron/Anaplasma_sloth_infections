@@ -443,6 +443,24 @@ table_anaplasma_tick_Cd <- table(data_Cd$anaplasma, data_Cd$tick)
 table_anaplasma_tick_Cd
 ```
 
+Tests for associations between `anaplasma` and the presence of `tick`considered in Cd:
+```
+fisher.test(table(data_Cd$anaplasma, data_Cd$tick))  
+```
+
+Results are:
+```
+Fisher's Exact Test for Count Data
+data:  table(data_Cd$anaplasma, data_Cd$tick)
+p-value = 0.06647
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+0.8993651 10.6691063
+sample estimates:
+odds ratio 
+2.92993 
+```
+
 Tests for associations between `anaplasma` and the presence of blood parasites (`microfilaria`, `trypanosome`, `babesia`) considered separately in Cd:
 ```
 fisher.test(table(data_Cd$anaplasma, data_Cd$microfilaria))  
