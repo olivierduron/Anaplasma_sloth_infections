@@ -1442,6 +1442,51 @@ season    513.20    1.4277
 sex       515.94    1.3145
 ```
 
+Compare the null model (model_null) to univariate models using likelihood ratio tests and AIC:
+```
+model7_null <- glm(hematocrit ~ 1, data = data_adult_Bt, family = Gamma(link = "log"))
+model7_anaplasma <- glm(hematocrit ~ anaplasma, data = data_adult_Bt, family = Gamma(link = "log"))
+model7_season <- glm(hematocrit ~ season, data = data_adult_Bt, family = Gamma(link = "log"))
+model7_sex <- glm(hematocrit ~ sex, data = data_adult_Bt, family = Gamma(link = "log"))
+anova(model7_null, model7_anaplasma, test="Chisq")
+anova(model7_null, model7_season, test="Chisq")
+anova(model7_null, model7_sex, test="Chisq")
+aics <- AIC(model7_null, model7_anaplasma, model7_season, model7_sex)
+aic_null <- aics["model7_null", "AIC"]
+aics$delta_AIC_vs_null <- aics$AIC - aic_null
+print(aics[, c("AIC", "delta_AIC_vs_null")])
+```
+
+Results are:
+```
+Analysis of Deviance Table
+Model 1: hematocrit ~ 1
+Model 2: hematocrit ~ anaplasma
+  Resid. Df Resid. Dev Df  Deviance Pr(>Chi)
+1        83     1.4015                      
+2        82     1.3948  1 0.0066991   0.5339
+---
+Analysis of Deviance Table
+Model 1: hematocrit ~ 1
+Model 2: hematocrit ~ season
+  Resid. Df Resid. Dev Df  Deviance Pr(>Chi)
+1        83     1.4015                      
+2        82     1.3926  1 0.0089277   0.4709
+---
+Analysis of Deviance Table
+Model 1: hematocrit ~ 1
+Model 2: hematocrit ~ sex
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)  
+1        83     1.4015                       
+2        82     1.3423  1 0.059141  0.05883 
+---
+                      AIC delta_AIC_vs_null
+model7_null      513.0105          0.000000
+model7_anaplasma 514.6069          1.596403
+model7_season    514.4722          1.461711
+model7_sex       511.3790          1.631481
+```
+
 Fit a linear model to test the null hypothesis (`hematocrit` ~ 1) in adult Bt, assessing model fit:
 ```
 model_7b <- glm(hematocrit ~ 1, data = data_adult_Bt, family = Gamma(link = "log"))
