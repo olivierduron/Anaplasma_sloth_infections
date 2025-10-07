@@ -372,7 +372,7 @@ tick          119.35   0.82844
 bloodparasite 117.03   1.49777
 ```
 
-Compare the null model (model_null) to univariate models using likelihood ratio tests and AIC:
+Compare the null model (model2_null) to univariate models using likelihood ratio tests and AIC:
 ```
 model2_null <- glm(anaplasma ~ 1, data = data_Cd, family = binomial)
 model2_sex <- glm(anaplasma ~ sex, data = data_Cd, family = binomial)
