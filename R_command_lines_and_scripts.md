@@ -182,10 +182,10 @@ Results are:
                  AIC delta_AIC
 <none>        128.74   0.00000
 sex           129.40   0.65956
-age           128.01  -0.72741
-season        126.93  -1.80952
-tick          127.56  -1.17641
-bloodparasite 126.74  -1.99463
+age           128.01   0.72741
+season        126.93   1.80952
+tick          127.56   1.17641
+bloodparasite 126.74   1.99463
 ```
 
 Tests for associations between `anaplasma` and the presence of blood parasites (`microfilaria`, `trypanosome`, `babesia`) considered separately in Bt:
@@ -300,11 +300,11 @@ Results are:
 ```
                  AIC delta_AIC
 <none>        118.53   0.00000
-sex           117.12  -1.40188
-age           118.07  -0.45219
-season        117.82  -0.70842
+sex           117.12   1.40188
+age           118.07   0.45219
+season        117.82   0.70842
 tick          119.35   0.82844
-bloodparasite 117.03  -1.49777
+bloodparasite 117.03   1.49777
 ```
 
 Tests for associations between `anaplasma` and the presence of blood parasites (`microfilaria`, `trypanosome`, `babesia`) considered separately in Cd:
@@ -461,8 +461,8 @@ Results are:
 ```
              AIC delta_AIC
 <none>    150.56    0.0000
-anaplasma 149.89   -0.6729
-season    148.64   -1.9230
+anaplasma 149.89    0.6729
+season    148.64    1.9230
 sex       161.06   10.4943
 ```
 
@@ -697,9 +697,9 @@ Results are:
 ```
              AIC delta_AIC
 <none>    134.63   0.00000
-anaplasma 133.96  -0.67134
-season    133.17  -1.45740
-sex       132.67  -1.95713
+anaplasma 133.96   0.67134
+season    133.17   1.45740
+sex       132.67   1.95713
 ```
 
 Fit a linear model to test the null hypothesis (SMI ~ 1) in adult Bt, assessing model fit and checking residual normality:
@@ -871,8 +871,8 @@ AIC(model_5, model_5a)
 Results are:
 ```
          df       AIC
-model_5   9 -104.2969
-model_5a  5 -111.0378
+model_5   9  104.2969
+model_5a  5  111.0378
 ```
 
 
@@ -903,10 +903,10 @@ print(res[, c("AIC", "delta_AIC")])
 Results are:
 ```
               AIC delta_AIC
-<none>    -111.04   0.00000
-anaplasma -112.44  -1.40105
-season    -112.69  -1.64732
-sex       -110.07   0.96411
+<none>     111.04   0.00000
+anaplasma  112.44   1.40105
+season     112.69   1.64732
+sex        110.07   0.96411
 ```
 
 Fit a linear model to test the null hypothesis (`neck_size` ~ 1) in adult Bt, assessing model fit and checking residual normality:
@@ -929,8 +929,8 @@ Model 2: log(neck_size) ~ anaplasma * season * sex
 
 > AIC(model_5b, model_5)
          df       AIC
-model_5b  2 -112.6360
-model_5   9 -104.2969
+model_5b  2  112.6360
+model_5   9  104.2969
 
 > shapiro.test(model_5b$residuals)
 Shapiro-Wilk normality test
@@ -971,8 +971,8 @@ AIC(model_6, model_6a)
 Results are:
 ```
          df       AIC
-model_6   9 -66.16370
-model_6a  5 -67.40481
+model_6   9  66.16370
+model_6a  5  67.40481
 ```
 
 Perform drop-one-term analysis on the additive model:
@@ -1002,10 +1002,10 @@ print(res[, c("AIC", "delta_AIC")])
 Results are:
 ```
               AIC delta_AIC
-<none>    -67.405   0.00000
-anaplasma -69.324  -1.91948
-season    -67.728  -0.32310
-sex       -67.804  -0.39917
+<none>     67.405   0.00000
+anaplasma  69.324   1.91948
+season     67.728   0.32310
+sex        67.804   0.39917
 ```
 
 Fit a linear model to test the null hypothesis (`neck_size` ~ 1) in adult Cd, assessing model fit and checking residual normality:
@@ -1028,8 +1028,8 @@ Model 2: log(neck_size) ~ anaplasma * season * sex
 
 > AIC(model_6b, model_6)
          df       AIC
-model_6b  2 -69.52144
-model_6   9 -66.16370
+model_6b  2  69.52144
+model_6   9  66.16370
 
 > shapiro.test(model_6b$residuals)
 Shapiro-Wilk normality test
@@ -1103,8 +1103,8 @@ Results are:
 ```
              AIC delta_AIC
 <none>    514.63    0.0000
-anaplasma 512.76   -1.8666
-season    513.20   -1.4277
+anaplasma 512.76    1.8666
+season    513.20    1.4277
 sex       515.94    1.3145
 ```
 
@@ -1339,9 +1339,9 @@ Results are:
 ```
              AIC delta_AIC
 <none>    339.39    0.0000
-anaplasma 339.12   -0.2695
+anaplasma 339.12    0.2695
 season    343.52    4.1318
-sex       337.81   -1.5822
+sex       337.81    1.5822
 ```
 
 Fit a linear model to test the model_8b (`hematocrit` ~ `season`) in adult Cd, assessing model fit (with the exclusion of four outlier observations with `hematocrit` values below 30%):
@@ -1531,8 +1531,8 @@ Results are:
 ```
              AIC delta_AIC
 <none>    90.804    0.0000
-anaplasma 89.482   -1.3215
-season    89.054   -1.7503
+anaplasma 89.482    1.3215
+season    89.054    1.7503
 sex       93.181    2.3768
 ```
 
@@ -1633,9 +1633,9 @@ Results are:
 ```
              AIC delta_AIC
 <none>    68.141    0.0000
-anaplasma 66.461   -1.6808
-season    66.368   -1.7735
-sex       66.246   -1.8950
+anaplasma 66.461    1.6808
+season    66.368    1.7735
+sex       66.246    1.8950
 ```
 
 Fit a linear model to test the null hypothesis (temp ~ 1) in adult Cd, assessing model fit:
