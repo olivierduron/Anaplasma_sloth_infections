@@ -1153,6 +1153,51 @@ season     112.69   1.64732
 sex        110.07   0.96411
 ```
 
+Compare the null model (model_null) to univariate models using likelihood ratio tests and AIC:
+```
+model5_null <- glm(log(neck_size) ~ 1, data = data_adult_Bt, family = gaussian(link = "identity"))
+model5_anaplasma <- glm(log(neck_size) ~ anaplasma, data = data_adult_Bt, family = gaussian(link = "identity"))
+model5_season <- glm(log(neck_size) ~ season, data = data_adult_Bt, family = gaussian(link = "identity"))
+model5_sex <- glm(log(neck_size) ~ sex, data = data_adult_Bt, family = gaussian(link = "identity"))
+anova(model5_null, model5_anaplasma, test="Chisq")
+anova(model5_null, model5_season, test="Chisq")
+anova(model5_null, model5_sex, test="Chisq")
+aics <- AIC(model5_null, model5_anaplasma, model5_season, model5_sex)
+aic_null <- aics["model5_null", "AIC"]
+aics$delta_AIC_vs_null <- aics$AIC - aic_null
+print(aics[, c("AIC", "delta_AIC_vs_null")])
+```
+
+Results are:
+```
+Analysis of Deviance Table
+Model 1: log(neck_size) ~ 1
+Model 2: log(neck_size) ~ anaplasma
+  Resid. Df Resid. Dev Df  Deviance Pr(>Chi)
+1        60    0.52778                      
+2        59    0.51872  1 0.0090608     0.31
+---
+Analysis of Deviance Table
+Model 1: log(neck_size) ~ 1
+Model 2: log(neck_size) ~ season
+  Resid. Df Resid. Dev Df  Deviance Pr(>Chi)
+1        60    0.52778                      
+2        59    0.52413  1 0.0036529   0.5214
+---
+Analysis of Deviance Table
+Model 1: log(neck_size) ~ 1
+Model 2: log(neck_size) ~ sex
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)  
+1        60    0.52778                       
+2        59    0.49900  1 0.028786  0.06505
+---
+                       AIC delta_AIC_vs_null
+model5_null       112.6360         0.0000000
+model5_anaplasma  111.6923         0.9436813
+model5_season     111.0596         1.5763372
+model5_sex        114.0572         1.4212353
+```
+
 Fit a linear model to test the null hypothesis (`neck_size` ~ 1) in adult Bt, assessing model fit and checking residual normality:
 ```
 model_5b <- glm(log(neck_size) ~ 1, data = data_adult_Bt, family = gaussian(link = "identity"))
