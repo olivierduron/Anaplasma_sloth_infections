@@ -437,6 +437,12 @@ model2_tick          114.8528         2.1011720
 model2_bloodparasite 118.0508         1.0968613
 ```
 
+Display the proportion of Cd sloths infected by Anaplasma with and without ticks:
+```
+table_anaplasma_tick_Cd <- table(data_Cd$anaplasma, data_Cd$tick)
+table_anaplasma_tick_Cd
+```
+
 Tests for associations between `anaplasma` and the presence of blood parasites (`microfilaria`, `trypanosome`, `babesia`) considered separately in Cd:
 ```
 fisher.test(table(data_Cd$anaplasma, data_Cd$microfilaria))  
