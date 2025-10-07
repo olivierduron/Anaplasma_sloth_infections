@@ -918,11 +918,33 @@ print(aics[, c("AIC", "delta_AIC_vs_null")])
 
 Results are:
 ```
-
-
-
-
-
+Analysis of Deviance Table
+Model 1: SMI ~ 1
+Model 2: SMI ~ anaplasma
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        56     30.572                     
+2        55     30.043  1  0.52848   0.3253
+---
+Analysis of Deviance Table
+Model 1: SMI ~ 1
+Model 2: SMI ~ season
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        56     30.572                     
+2        55     30.422  1  0.15022   0.6023
+---
+Analysis of Deviance Table
+Model 1: SMI ~ 1
+Model 2: SMI ~ sex
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)
+1        56     30.572                     
+2        55     30.554  1 0.017332   0.8598
+---
+                      AIC delta_AIC_vs_null
+model4_null      130.2494          0.000000
+model4_anaplasma 131.2555          1.006055
+model4_season    131.9687          1.719234
+model4_sex       132.2171          1.967676
+```
 
 Fit a linear model to test the null hypothesis (SMI ~ 1) in adult Bt, assessing model fit and checking residual normality:
 ```
