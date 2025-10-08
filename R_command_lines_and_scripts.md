@@ -718,7 +718,7 @@ A tibble: 2 × 3
 2 M         4.83 0.0997
 ```
 
-Post hoc power analyses for SMI tests in Bt:
+Post hoc power analyses for SMI tests in Bt (full model):
 ```
 n <- nrow(na.omit(data_adult_Bt[, c("SMI", "anaplasma", "season", "sex")]))
 k <- 7
@@ -741,6 +741,19 @@ v = 75
 f2 = 0.2
 sig.level = 0.05
 power = 0.824756
+```
+
+Post hoc power analyses for SMI tests in Bt (reduced model, 'SMI' ~ 'sex' and adding 'anaplasma'):
+```
+n <- nrow(na.omit(data_adult_Bt[, c("SMI", "anaplasma", "sex")]))
+k <- 2
+pwr.f2.test(u = k, v = n - k - 1, f2 = 0.30, sig.level = 0.05)
+pwr.f2.test(u = k, v = n - k - 1, f2 = 0.20, sig.level = 0.05)
+```
+
+Results are:
+```
+BLABLABLA
 ```
 
 Generate SMI chart for Bt:
