@@ -753,7 +753,19 @@ pwr.f2.test(u = k, v = n - k - 1, f2 = 0.20, sig.level = 0.05)
 
 Results are:
 ```
-BLABLABLA
+Multiple regression power calculation 
+u = 2
+v = 80
+f2 = 0.3
+sig.level = 0.05
+power = 0.9952295
+and
+Multiple regression power calculation 
+u = 2
+v = 80
+f2 = 0.2
+sig.level = 0.05
+power = 0.9564976
 ```
 
 Generate SMI chart for Bt:
