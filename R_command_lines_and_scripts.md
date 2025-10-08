@@ -1025,6 +1025,31 @@ sig.level = 0.05
 power = 0.6102676
 ```
 
+Post hoc power analyses for SMI tests in Cd (null model, `SMI` ~ 1 and adding `anaplasma`):
+```
+n <- nrow(na.omit(data_adult_Cd[, c("SMI", "anaplasma")]))
+k <- 1  # 1 paramètre d'intérêt
+pwr.f2.test(u = k, v = n - k - 1, f2 = 0.30, sig.level = 0.05)
+pwr.f2.test(u = k, v = n - k - 1, f2 = 0.20, sig.level = 0.05)
+```
+
+Results are:
+```
+Multiple regression power calculation 
+u = 1
+v = 55
+f2 = 0.3
+sig.level = 0.05
+power = 0.9822249
+and
+Multiple regression power calculation 
+u = 1
+v = 55
+f2 = 0.2
+sig.level = 0.05
+power = 0.9125943
+```
+
 Generate SMI chart for Cd:
 ```
 clean_data <- data_adult_Cd %>%
