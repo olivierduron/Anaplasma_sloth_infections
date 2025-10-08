@@ -1786,7 +1786,7 @@ Model 2: hematocrit ~ sex
                       AIC delta_AIC_vs_null
 model9_null      340.3634          0.000000
 model9_anaplasma 341.8978          1.534422
-model9_season    337.7635         2.599874
+model9_season    337.7635          2.599874
 model9_sex       342.1949          1.831468
 ```
 
