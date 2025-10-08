@@ -743,7 +743,7 @@ sig.level = 0.05
 power = 0.824756
 ```
 
-Post hoc power analyses for SMI tests in Bt (reduced model, 'SMI' ~ 'sex' and adding 'anaplasma'):
+Post hoc power analyses for SMI tests in Bt (reduced model, `SMI` ~ `sex` and adding `anaplasma`):
 ```
 n <- nrow(na.omit(data_adult_Bt[, c("SMI", "anaplasma", "sex")]))
 k <- 2
